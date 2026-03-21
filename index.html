@@ -25,7 +25,14 @@
       font-family: 'Poppins', sans-serif;
       overflow-x: hidden;
       position: relative;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+
+    /* Smooth everything */
+    * { will-change: auto; }
+    a, button { transition: all 0.25s ease; }
+    img { display: block; }
 
     /* ── FIXED BURGER BACKGROUND ── */
     #bg-burger {
@@ -164,6 +171,11 @@
       from { opacity: 0; transform: translateY(30px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+    @keyframes pageIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    body { animation: pageIn 0.6s ease forwards; }
 
     /* ── SECTION COMMON ── */
     section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
@@ -269,8 +281,9 @@
     }
     .story-chapter {
       position: absolute; opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s, transform 0.5s;
+      transform: translateY(24px);
+      transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.6s cubic-bezier(0.22,1,0.36,1);
       pointer-events: none;
     }
     .story-chapter.active {
@@ -412,11 +425,31 @@
     .footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.2); margin-top: 1.5rem; }
 
     /* ── REVEAL ── */
-    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s, transform 0.7s; }
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+    }
     .reveal.in { opacity: 1; transform: translateY(0); }
-    .delay1 { transition-delay: 0.1s; }
-    .delay2 { transition-delay: 0.2s; }
-    .delay3 { transition-delay: 0.3s; }
+    .delay1 { transition-delay: 0.12s; }
+    .delay2 { transition-delay: 0.22s; }
+    .delay3 { transition-delay: 0.32s; }
+
+    /* Smooth card hover */
+    .glass {
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1),
+                  box-shadow 0.35s ease,
+                  border-color 0.35s ease;
+    }
+    .glass:hover {
+      border-color: rgba(245,158,11,0.4);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+    }
+
+    /* Smooth bg burger */
+    #bg-burger {
+      transition: transform 0.1s linear;
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
@@ -628,18 +661,32 @@
   <script>
     const isMob = () => window.innerWidth <= 768;
 
-    // Progress bar
+    // Smooth scroll-driven updates via rAF
     const progress = document.getElementById('progress');
-    window.addEventListener('scroll', () => {
-      const p = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-      progress.style.width = (p * 100) + '%';
-    }, { passive: true });
-
-    // Bg burger parallax
     const bgBurger = document.getElementById('bg-burger');
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY * 0.08;
+    let ticking = false;
+    let lastScroll = 0;
+
+    function onFrame() {
+      const scrollY = lastScroll;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+
+      // Progress bar
+      progress.style.width = (scrollY / maxScroll * 100) + '%';
+
+      // Burger parallax — buttery smooth
+      const y = scrollY * 0.06;
       bgBurger.style.transform = `translate(-50%, calc(-50% + ${y}px))`;
+
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      lastScroll = window.scrollY;
+      if (!ticking) {
+        requestAnimationFrame(onFrame);
+        ticking = true;
+      }
     }, { passive: true });
 
     // Story animation
