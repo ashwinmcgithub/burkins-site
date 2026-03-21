@@ -38,6 +38,7 @@
       justify-content: center;
       text-align: center;
       position: relative;
+      padding: 1rem;
       background: radial-gradient(ellipse at center, #1a0a00 0%, var(--bg) 70%);
     }
 
@@ -69,7 +70,7 @@
 
     .hero-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(6rem, 18vw, 16rem);
+      font-size: clamp(4rem, 18vw, 16rem);
       line-height: 0.9;
       letter-spacing: 0.02em;
       color: var(--white);
@@ -83,7 +84,7 @@
     }
 
     .hero-tagline {
-      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-size: clamp(0.85rem, 2.5vw, 1.4rem);
       font-weight: 300;
       color: var(--text-muted);
       margin-top: 1.2rem;
@@ -178,11 +179,11 @@
 
     .burger-stack {
       position: relative;
-      width: 260px;
+      width: 300px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
+      gap: 3px;
     }
 
     /* ─── BURGER LAYERS ─────────────────────────────────── */
@@ -194,91 +195,91 @@
                   filter 0.5s ease;
     }
 
+    /* TOP BUN — rounder dome, rich golden brown, sesame seeds */
     .layer-top-bun {
-      height: 56px;
-      border-radius: 50px 50px 4px 4px;
-      background: linear-gradient(160deg, #e8a020 0%, #c8860a 40%, #8B4513 100%);
-      box-shadow: 0 -4px 20px rgba(200,134,10,0.3), inset 0 -6px 12px rgba(0,0,0,0.3);
+      height: 72px;
+      width: 100%;
+      border-radius: 50% 50% 20% 20%;
+      background: linear-gradient(160deg, #f0a830 0%, #c8860a 38%, #8B4513 100%);
+      box-shadow:
+        0 -4px 20px rgba(200,134,10,0.3),
+        inset 0 -10px 20px rgba(0,0,0,0.35),
+        0 6px 14px rgba(0,0,0,0.55);
       order: 1;
-      transform: translateY(-140px);
+      transform: translateY(-160px);
       opacity: 0;
     }
 
+    /* Sesame seeds via ::before box-shadows */
     .layer-top-bun::before {
       content: '';
       position: absolute;
-      top: 10px;
+      top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      width: 80%;
-      height: 18px;
+      width: 7px;
+      height: 12px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.07);
+      background: rgba(255, 245, 200, 0.9);
+      box-shadow:
+        -50px -4px 0 1px rgba(255,245,200,0.85),
+        -28px -12px 0 1px rgba(255,245,200,0.8),
+        -5px -14px 0 1px rgba(255,245,200,0.8),
+        20px -10px 0 1px rgba(255,245,200,0.85),
+        42px -3px 0 1px rgba(255,245,200,0.8),
+        60px 5px 0 0px rgba(255,245,200,0.75),
+        -62px 6px 0 0px rgba(255,245,200,0.7),
+        10px 6px 0 1px rgba(255,245,200,0.7);
     }
 
-    /* Sesame seeds */
+    /* Dome shine highlight */
     .layer-top-bun::after {
       content: '';
       position: absolute;
-      top: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      height: 20px;
-      background:
-        radial-gradient(ellipse 5px 3px at 20% 50%, rgba(255,240,200,0.8) 0%, transparent 100%),
-        radial-gradient(ellipse 5px 3px at 40% 30%, rgba(255,240,200,0.8) 0%, transparent 100%),
-        radial-gradient(ellipse 5px 3px at 60% 60%, rgba(255,240,200,0.8) 0%, transparent 100%),
-        radial-gradient(ellipse 5px 3px at 75% 40%, rgba(255,240,200,0.8) 0%, transparent 100%),
-        radial-gradient(ellipse 5px 3px at 88% 55%, rgba(255,240,200,0.8) 0%, transparent 100%);
+      top: 7px;
+      left: 15%;
+      width: 70%;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      pointer-events: none;
     }
 
+    /* SAUCE — deep red, wave shape */
     .layer-sauce {
-      height: 7px;
-      background: #dc2626;
-      border-radius: 4px;
+      height: 9px;
+      background: linear-gradient(180deg, #e01f1f 0%, #cc1a1a 100%);
+      border-radius: 60% 40% 50% 60% / 100% 100% 0% 0%;
       order: 2;
-      position: relative;
-      transform: translateX(300px);
+      transform: translateX(320px);
       opacity: 0;
-      overflow: visible;
       width: 92%;
-      box-shadow: 0 2px 8px rgba(220,38,38,0.5);
+      box-shadow: 0 3px 10px rgba(204,26,26,0.55);
     }
 
-    .layer-sauce::before {
-      content: '';
-      position: absolute;
-      top: -3px;
-      left: 10%;
-      width: 80%;
-      height: 12px;
-      background: #dc2626;
-      border-radius: 50% 50% 50% 50% / 0% 0% 100% 100%;
-      filter: blur(1px);
-    }
-
+    /* LETTUCE — multiple greens, wavy/ruffled */
     .layer-lettuce {
-      height: 22px;
-      width: 105%;
-      background: linear-gradient(180deg, #4a8c2a 0%, #2d5a1b 60%, #1e3d12 100%);
-      border-radius: 40% 40% 20% 20% / 60% 60% 40% 40%;
+      height: 26px;
+      width: 110%;
+      background: linear-gradient(160deg, #6abf3d 0%, #4a8c2a 45%, #2d5a1b 80%, #1e3d12 100%);
+      border-radius: 55% 45% 35% 55% / 70% 65% 45% 50%;
       order: 3;
-      transform: translateY(-80px);
+      transform: translateY(-90px);
       opacity: 0;
       position: relative;
-      box-shadow: 0 4px 10px rgba(45,90,27,0.4);
+      box-shadow: 0 4px 12px rgba(45,90,27,0.5);
+      overflow: visible;
     }
 
     .layer-lettuce::before {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 5%;
-      width: 90%;
-      height: 14px;
-      background: linear-gradient(180deg, transparent 0%, #4a8c2a 50%, #2d5a1b 100%);
-      border-radius: 40% 40% 10% 10% / 80% 80% 20% 20%;
+      bottom: -4px;
+      left: 3%;
+      width: 94%;
+      height: 16px;
+      background: linear-gradient(180deg, #4a8c2a 0%, #2d5a1b 60%, transparent 100%);
+      border-radius: 50% 50% 10% 10% / 80% 80% 20% 20%;
     }
 
     .layer-lettuce::after {
@@ -287,78 +288,86 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 10px;
+      height: 12px;
       background: repeating-linear-gradient(
         90deg,
         transparent 0px,
-        transparent 14px,
-        rgba(74,140,42,0.6) 14px,
-        rgba(74,140,42,0.6) 16px
+        transparent 12px,
+        rgba(110,191,61,0.5) 12px,
+        rgba(110,191,61,0.5) 14px
       );
-      border-radius: 40% 40% 0 0 / 60% 60% 0 0;
+      border-radius: 55% 45% 0 0 / 70% 65% 0 0;
     }
 
+    /* CHEESE — bright yellow-orange, melting/drooping clip-path */
     .layer-cheese {
-      height: 9px;
-      width: 100%;
+      height: 14px;
+      width: 106%;
       background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 100%);
       order: 4;
-      transform: translateY(-60px);
+      transform: translateY(-70px);
       opacity: 0;
-      border-radius: 2px;
       position: relative;
-      box-shadow: 0 3px 8px rgba(245,158,11,0.4);
+      box-shadow: 0 4px 10px rgba(245,158,11,0.45);
+      clip-path: polygon(
+        0% 0%, 100% 0%, 100% 55%,
+        96% 100%, 90% 55%,
+        83% 100%, 76% 55%,
+        69% 100%, 62% 55%,
+        55% 100%, 48% 55%,
+        41% 100%, 34% 55%,
+        27% 100%, 20% 55%,
+        13% 100%, 6% 55%,
+        0% 100%
+      );
     }
 
-    .layer-cheese::before {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      left: 5%;
-      width: 90%;
-      height: 10px;
-      background: linear-gradient(180deg, #f59e0b 0%, transparent 100%);
-      clip-path: polygon(0% 0%, 8% 100%, 16% 0%, 24% 100%, 32% 0%, 40% 100%, 48% 0%, 56% 100%, 64% 0%, 72% 100%, 80% 0%, 88% 100%, 96% 0%, 100% 40%, 100% 0%);
-    }
-
+    /* PATTY — dark brown, grill marks, slight irregular edges */
     .layer-patty {
-      height: 38px;
+      height: 42px;
       width: 96%;
-      background: linear-gradient(160deg, #5c2a00 0%, #3d1a00 50%, #2a1000 100%);
-      border-radius: 8px;
+      background: linear-gradient(155deg, #4a2000 0%, #2d1200 50%, #1a0800 100%);
+      border-radius: 10px 10px 8px 8px;
       order: 5;
-      transform: translateX(-300px);
+      transform: translateX(-320px);
       opacity: 0;
       position: relative;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.6), inset 0 2px 4px rgba(255,255,255,0.05);
+      box-shadow:
+        0 4px 18px rgba(0,0,0,0.75),
+        inset 0 2px 6px rgba(255,255,255,0.04),
+        inset 0 -2px 6px rgba(0,0,0,0.4);
     }
 
-    /* grill marks */
+    /* Grill marks */
     .layer-patty::after {
       content: '';
       position: absolute;
       inset: 6px 10px;
       background: repeating-linear-gradient(
-        -45deg,
+        -35deg,
         transparent 0px,
-        transparent 6px,
-        rgba(0,0,0,0.5) 6px,
-        rgba(0,0,0,0.5) 9px
+        transparent 8px,
+        rgba(0,0,0,0.5) 8px,
+        rgba(0,0,0,0.5) 11px
       );
-      border-radius: 4px;
+      border-radius: 5px;
     }
 
+    /* BOTTOM BUN — same as top but flatter */
     .layer-bottom-bun {
-      height: 44px;
-      border-radius: 4px 4px 50px 50px;
-      background: linear-gradient(180deg, #c8860a 0%, #a06208 50%, #8B4513 100%);
+      height: 42px;
+      border-radius: 20% 20% 50% 50%;
+      background: linear-gradient(180deg, #e8a020 0%, #c8860a 45%, #8B4513 100%);
       order: 6;
-      transform: translateY(120px);
+      transform: translateY(130px);
       opacity: 0;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5), inset 0 4px 8px rgba(255,255,255,0.08);
+      box-shadow:
+        0 10px 26px rgba(0,0,0,0.65),
+        inset 0 5px 10px rgba(255,255,255,0.08),
+        0 -3px 8px rgba(0,0,0,0.4);
     }
 
-    /* Active states */
+    /* Active states — make all layers snap to position */
     .burger-layer.visible {
       transform: translateX(0) translateY(0) !important;
       opacity: 1 !important;
@@ -765,6 +774,36 @@
 
     .btn-whatsapp:hover { box-shadow: 0 8px 30px rgba(37,211,102,0.5); }
 
+    /* ─── FLOATING WHATSAPP BUTTON ───────────────────────── */
+    .wa-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 9000;
+      background: #25D366;
+      color: #000;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: waPulse 2.5s infinite;
+    }
+
+    .wa-float:hover {
+      transform: scale(1.1) translateY(-2px);
+      box-shadow: 0 10px 30px rgba(37,211,102,0.65);
+    }
+
+    @keyframes waPulse {
+      0%, 100% { box-shadow: 0 6px 24px rgba(37,211,102,0.5); }
+      50% { box-shadow: 0 6px 32px rgba(37,211,102,0.75), 0 0 0 8px rgba(37,211,102,0.1); }
+    }
+
     /* ─── FOOTER ─────────────────────────────────────────── */
     footer {
       border-top: 1px solid rgba(255,255,255,0.06);
@@ -793,87 +832,6 @@
       font-weight: 300;
     }
 
-    /* ─── MOBILE ─────────────────────────────────────────── */
-    @media (max-width: 768px) {
-      .burger-sticky {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto;
-        padding: 2rem 1rem;
-        gap: 2rem;
-        align-content: center;
-      }
-
-      .burger-visual {
-        padding: 1rem;
-      }
-
-      .burger-stack {
-        width: 200px;
-      }
-
-      .burger-story-panel {
-        padding: 1rem 1.5rem;
-        text-align: center;
-      }
-
-      .chapter-indicator {
-        justify-content: center;
-      }
-
-      .chapter-num {
-        display: none;
-      }
-
-      .chapter-body {
-        max-width: 100%;
-      }
-
-      #burger-story {
-        height: auto;
-        min-height: 100vh;
-      }
-
-      /* Mobile: simple fade-in sequence */
-      .burger-layer {
-        transform: translateX(0) translateY(0) !important;
-        opacity: 0;
-        transition: opacity 0.6s ease !important;
-      }
-
-      .burger-layer.visible {
-        opacity: 1 !important;
-      }
-
-      .story-chapter {
-        position: relative !important;
-        opacity: 0;
-        transform: none;
-        transition: opacity 0.5s ease !important;
-        display: none;
-      }
-
-      .story-chapter.active {
-        display: block;
-        opacity: 1;
-      }
-
-      .chapter-headline {
-        font-size: 1.8rem;
-      }
-
-      .menu-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .find-us-card {
-        padding: 2.5rem 1.5rem;
-      }
-
-      .hero-title {
-        font-size: 5rem;
-      }
-    }
-
     /* ─── DIVIDER ─────────────────────────────────────────── */
     .section-divider {
       width: 60px;
@@ -898,12 +856,205 @@
     .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ─── TABLET BREAKPOINT ──────────────────────────────── */
+    @media (max-width: 1024px) and (min-width: 769px) {
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* ─── MOBILE ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+
+      /* Hero */
+      #hero {
+        padding: 1rem;
+      }
+
+      .hero-eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 0.25em;
+        margin-bottom: 0.6rem;
+      }
+
+      .hero-tagline {
+        font-size: 0.85rem;
+      }
+
+      /* Burger story section — collapse tall scroll height on mobile */
+      #burger-story {
+        height: auto !important;
+        min-height: unset !important;
+      }
+
+      .burger-sticky {
+        position: relative !important;
+        height: auto !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 3rem 16px 2rem;
+        gap: 0;
+        background: radial-gradient(ellipse at 50% 30%, #1a0800 0%, var(--bg) 70%);
+        min-height: unset !important;
+      }
+
+      /* Burger on top */
+      .burger-visual {
+        order: 1;
+        padding: 1rem 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .burger-stack {
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+      }
+
+      .burger-stack .burger-layer {
+        width: 100%;
+      }
+
+      /* Mobile burger layers — start hidden, animate in via JS */
+      .burger-layer {
+        transform: translateX(0) translateY(0) !important;
+        opacity: 0 !important;
+        transition: opacity 0.6s ease !important;
+      }
+
+      .burger-layer.visible {
+        opacity: 1 !important;
+      }
+
+      /* Story panel — below burger */
+      .burger-story-panel {
+        order: 2;
+        padding: 1.5rem 0 1rem;
+        text-align: center;
+        width: 100%;
+      }
+
+      .chapter-indicator {
+        justify-content: center;
+        margin-bottom: 1.5rem;
+      }
+
+      /* Mobile chapters — stacked list, not overlapping */
+      .story-chapter {
+        position: relative !important;
+        opacity: 0;
+        transform: translateY(12px);
+        transition: opacity 0.5s ease, transform 0.5s ease !important;
+        display: block !important;
+        pointer-events: auto !important;
+        margin-bottom: 1.8rem;
+        padding: 1.2rem;
+        background: rgba(255,255,255,0.03);
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.05);
+        text-align: left;
+      }
+
+      .story-chapter.active {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        position: relative !important;
+      }
+
+      /* Hide the big ghost chapter number on mobile */
+      .chapter-num {
+        display: none;
+      }
+
+      .chapter-headline {
+        font-size: 1.6rem;
+      }
+
+      .chapter-body {
+        max-width: 100%;
+        font-size: 0.9rem;
+      }
+
+      /* Menu */
+      #menu {
+        padding: 4rem 16px;
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      /* Why section */
+      #why {
+        padding: 4rem 16px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      /* Find us */
+      #find-us {
+        padding: 4rem 16px;
+      }
+
+      .find-us-card {
+        padding: 2rem 1.2rem;
+      }
+
+      .address-item {
+        font-size: 0.85rem;
+        text-align: left;
+      }
+
+      /* Footer */
+      footer {
+        padding: 2rem 16px;
+      }
+
+      /* Floating WA button smaller on mobile */
+      .wa-float {
+        width: 48px;
+        height: 48px;
+        bottom: 1.2rem;
+        right: 1.2rem;
+      }
+
+      .wa-float svg {
+        width: 22px;
+        height: 22px;
+      }
+    }
+
+    /* Tablet: 2-col menu grid */
+    @media (min-width: 480px) and (max-width: 768px) {
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
   </style>
 </head>
 <body>
 
   <!-- Progress bar -->
   <div class="scroll-progress-bar" id="progressBar"></div>
+
+  <!-- Floating WhatsApp button -->
+  <a class="wa-float" href="https://wa.me/919876543210?text=Hi%20Burkins!%20I%20want%20to%20place%20an%20order" target="_blank" rel="noopener" aria-label="Order on WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
 
   <!-- ── HERO ── -->
   <section id="hero">
@@ -921,7 +1072,7 @@
   <section id="burger-story">
     <div class="burger-sticky" id="burgerSticky">
 
-      <!-- Left: Burger visual -->
+      <!-- Burger visual -->
       <div class="burger-visual">
         <div class="burger-title-small">Building the Burger</div>
         <div class="burger-stack" id="burgerStack">
@@ -934,7 +1085,7 @@
         </div>
       </div>
 
-      <!-- Right: Story panel -->
+      <!-- Story panel -->
       <div class="burger-story-panel">
         <div class="chapter-indicator">
           <div class="chapter-dot" id="dot-0"></div>
@@ -1133,7 +1284,7 @@
     // ── MOBILE DETECTION ─────────────────────────────────
     const isMobile = () => window.innerWidth <= 768;
 
-    // ── BURGER SCROLL ANIMATION ───────────────────────────
+    // ── LAYER / CHAPTER REFERENCES ────────────────────────
     const storySection = document.getElementById('burger-story');
     const layers = [
       document.getElementById('layer-1'),
@@ -1158,14 +1309,15 @@
     function setChapter(idx) {
       if (idx === currentChapter) return;
 
-      // Deactivate previous
-      if (currentChapter >= 0) {
+      // Deactivate previous (desktop: hide; mobile: already shown)
+      if (currentChapter >= 0 && !isMobile()) {
         chapters[currentChapter].classList.remove('active');
+        dots[currentChapter].classList.remove('active');
+      } else if (currentChapter >= 0 && isMobile()) {
         dots[currentChapter].classList.remove('active');
       }
 
       currentChapter = idx;
-
       if (idx < 0) return;
 
       // Activate layer
@@ -1176,12 +1328,13 @@
       dots[idx].classList.add('active');
     }
 
+    // ── DESKTOP: SCROLL ANIMATION ─────────────────────────
     function onScroll() {
       const scrollY = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       progressBar.style.width = (scrollY / docHeight * 100) + '%';
 
-      if (isMobile()) return; // mobile handled separately
+      if (isMobile()) return; // mobile handled by IntersectionObserver
 
       const rect = storySection.getBoundingClientRect();
       const sectionTop = scrollY + rect.top;
@@ -1191,7 +1344,6 @@
       if (scrolled < 0 || scrolled > sectionHeight) return;
 
       const progress = Math.max(0, Math.min(1, scrolled / sectionHeight));
-      // 6 chapters, each takes ~1/7 of the scroll (with slight padding)
       const chapterSize = 1 / 7;
       const chapterIdx = Math.min(5, Math.floor(progress / chapterSize));
 
@@ -1200,27 +1352,44 @@
 
     window.addEventListener('scroll', onScroll, { passive: true });
 
-    // ── MOBILE: fade-in all layers on load ───────────────
-    function initMobile() {
-      if (!isMobile()) return;
+    // ── MOBILE: INTERSECTIONOBSERVER AUTO-ANIMATION ───────
+    let mobileAnimated = false;
+
+    function animateMobileBurger() {
+      if (mobileAnimated) return;
+      mobileAnimated = true;
+
+      // Animate each layer in, one by one, 800ms apart
       layers.forEach((layer, i) => {
         setTimeout(() => {
           layer.classList.add('visible');
-        }, 300 + i * 400);
+          // Reveal corresponding chapter below
+          chapters[i].classList.add('active');
+          dots[i].classList.add('active');
+          // Update currentChapter tracker
+          currentChapter = i;
+        }, i * 800);
       });
-      // Show first chapter
-      setTimeout(() => setChapter(0), 200);
+    }
 
-      // On mobile scroll, cycle chapters
-      let lastMobileChapter = 0;
-      const mobileInterval = setInterval(() => {
-        if (lastMobileChapter < 5) {
-          lastMobileChapter++;
-          setChapter(lastMobileChapter);
-        } else {
-          clearInterval(mobileInterval);
-        }
-      }, 700);
+    function initMobileObserver() {
+      if (!isMobile()) return;
+
+      // On mobile, observe the burger stack itself (not the 700vh section)
+      const burgerStack = document.getElementById('burgerStack');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateMobileBurger();
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      observer.observe(burgerStack);
     }
 
     // ── 3D CARD TILT ─────────────────────────────────────
@@ -1256,12 +1425,17 @@
 
     // ── INIT ──────────────────────────────────────────────
     window.addEventListener('load', () => {
-      initMobile();
-      onScroll();
+      if (isMobile()) {
+        initMobileObserver();
+      } else {
+        onScroll();
+      }
     });
 
     window.addEventListener('resize', () => {
-      if (isMobile()) initMobile();
+      if (isMobile() && !mobileAnimated) {
+        initMobileObserver();
+      }
     });
   </script>
 </body>
