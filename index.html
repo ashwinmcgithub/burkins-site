@@ -1,1442 +1,575 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Burkins — Where Every Bite Tells a Story</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #0a0a0a;
-      --amber: #f59e0b;
-      --amber-dark: #d97706;
-      --white: #ffffff;
-      --gray: #1a1a1a;
-      --gray2: #2a2a2a;
-      --text-muted: #888;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: 'Poppins', sans-serif;
-      overflow-x: hidden;
-    }
-
-    /* ─── HERO ─────────────────────────────────────────── */
-    #hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      padding: 1rem;
-      background: radial-gradient(ellipse at center, #1a0a00 0%, var(--bg) 70%);
-    }
-
-    #hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(255,255,255,0.01) 2px,
-        rgba(255,255,255,0.01) 4px
-      );
-      pointer-events: none;
-    }
-
-    .hero-eyebrow {
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.4em;
-      color: var(--amber);
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.3s forwards;
-    }
-
-    .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(4rem, 18vw, 16rem);
-      line-height: 0.9;
-      letter-spacing: 0.02em;
-      color: var(--white);
-      opacity: 0;
-      animation: fadeUp 0.8s 0.5s forwards;
-      position: relative;
-    }
-
-    .hero-title span {
-      color: var(--amber);
-    }
-
-    .hero-tagline {
-      font-size: clamp(0.85rem, 2.5vw, 1.4rem);
-      font-weight: 300;
-      color: var(--text-muted);
-      margin-top: 1.2rem;
-      letter-spacing: 0.05em;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.7s forwards;
-    }
-
-    .hero-sub {
-      font-size: 0.9rem;
-      color: var(--amber);
-      margin-top: 0.5rem;
-      font-weight: 500;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.9s forwards;
-    }
-
-    .scroll-indicator {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.4rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 1.2s forwards;
-    }
-
-    .scroll-indicator span {
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-    }
-
-    .scroll-arrow {
-      width: 24px;
-      height: 24px;
-      border-right: 2px solid var(--amber);
-      border-bottom: 2px solid var(--amber);
-      transform: rotate(45deg);
-      animation: bounce 1.6s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: rotate(45deg) translateY(0); }
-      50% { transform: rotate(45deg) translateY(6px); }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ─── BURGER STORY SECTION ──────────────────────────── */
-    #burger-story {
-      position: relative;
-      height: 700vh;
-    }
-
-    .burger-sticky {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      overflow: hidden;
-      background: radial-gradient(ellipse at 30% 50%, #1a0800 0%, var(--bg) 60%);
-    }
-
-    /* Left: burger visual */
-    .burger-visual {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      padding: 2rem;
-    }
-
-    .burger-title-small {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1rem;
-      letter-spacing: 0.3em;
-      color: var(--amber);
-      text-transform: uppercase;
-      margin-bottom: 2rem;
-    }
-
-    .burger-stack {
-      position: relative;
-      width: 300px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-    }
-
-    /* ─── BURGER LAYERS ─────────────────────────────────── */
-    .burger-layer {
-      width: 100%;
-      position: relative;
-      transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  opacity 0.5s ease,
-                  filter 0.5s ease;
-    }
-
-    /* TOP BUN — rounder dome, rich golden brown, sesame seeds */
-    .layer-top-bun {
-      height: 72px;
-      width: 100%;
-      border-radius: 50% 50% 20% 20%;
-      background: linear-gradient(160deg, #f0a830 0%, #c8860a 38%, #8B4513 100%);
-      box-shadow:
-        0 -4px 20px rgba(200,134,10,0.3),
-        inset 0 -10px 20px rgba(0,0,0,0.35),
-        0 6px 14px rgba(0,0,0,0.55);
-      order: 1;
-      transform: translateY(-160px);
-      opacity: 0;
-    }
-
-    /* Sesame seeds via ::before box-shadows */
-    .layer-top-bun::before {
-      content: '';
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 7px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(255, 245, 200, 0.9);
-      box-shadow:
-        -50px -4px 0 1px rgba(255,245,200,0.85),
-        -28px -12px 0 1px rgba(255,245,200,0.8),
-        -5px -14px 0 1px rgba(255,245,200,0.8),
-        20px -10px 0 1px rgba(255,245,200,0.85),
-        42px -3px 0 1px rgba(255,245,200,0.8),
-        60px 5px 0 0px rgba(255,245,200,0.75),
-        -62px 6px 0 0px rgba(255,245,200,0.7),
-        10px 6px 0 1px rgba(255,245,200,0.7);
-    }
-
-    /* Dome shine highlight */
-    .layer-top-bun::after {
-      content: '';
-      position: absolute;
-      top: 7px;
-      left: 15%;
-      width: 70%;
-      height: 24px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.07);
-      pointer-events: none;
-    }
-
-    /* SAUCE — deep red, wave shape */
-    .layer-sauce {
-      height: 9px;
-      background: linear-gradient(180deg, #e01f1f 0%, #cc1a1a 100%);
-      border-radius: 60% 40% 50% 60% / 100% 100% 0% 0%;
-      order: 2;
-      transform: translateX(320px);
-      opacity: 0;
-      width: 92%;
-      box-shadow: 0 3px 10px rgba(204,26,26,0.55);
-    }
-
-    /* LETTUCE — multiple greens, wavy/ruffled */
-    .layer-lettuce {
-      height: 26px;
-      width: 110%;
-      background: linear-gradient(160deg, #6abf3d 0%, #4a8c2a 45%, #2d5a1b 80%, #1e3d12 100%);
-      border-radius: 55% 45% 35% 55% / 70% 65% 45% 50%;
-      order: 3;
-      transform: translateY(-90px);
-      opacity: 0;
-      position: relative;
-      box-shadow: 0 4px 12px rgba(45,90,27,0.5);
-      overflow: visible;
-    }
-
-    .layer-lettuce::before {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 3%;
-      width: 94%;
-      height: 16px;
-      background: linear-gradient(180deg, #4a8c2a 0%, #2d5a1b 60%, transparent 100%);
-      border-radius: 50% 50% 10% 10% / 80% 80% 20% 20%;
-    }
-
-    .layer-lettuce::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 12px;
-      background: repeating-linear-gradient(
-        90deg,
-        transparent 0px,
-        transparent 12px,
-        rgba(110,191,61,0.5) 12px,
-        rgba(110,191,61,0.5) 14px
-      );
-      border-radius: 55% 45% 0 0 / 70% 65% 0 0;
-    }
-
-    /* CHEESE — bright yellow-orange, melting/drooping clip-path */
-    .layer-cheese {
-      height: 14px;
-      width: 106%;
-      background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 100%);
-      order: 4;
-      transform: translateY(-70px);
-      opacity: 0;
-      position: relative;
-      box-shadow: 0 4px 10px rgba(245,158,11,0.45);
-      clip-path: polygon(
-        0% 0%, 100% 0%, 100% 55%,
-        96% 100%, 90% 55%,
-        83% 100%, 76% 55%,
-        69% 100%, 62% 55%,
-        55% 100%, 48% 55%,
-        41% 100%, 34% 55%,
-        27% 100%, 20% 55%,
-        13% 100%, 6% 55%,
-        0% 100%
-      );
-    }
-
-    /* PATTY — dark brown, grill marks, slight irregular edges */
-    .layer-patty {
-      height: 42px;
-      width: 96%;
-      background: linear-gradient(155deg, #4a2000 0%, #2d1200 50%, #1a0800 100%);
-      border-radius: 10px 10px 8px 8px;
-      order: 5;
-      transform: translateX(-320px);
-      opacity: 0;
-      position: relative;
-      box-shadow:
-        0 4px 18px rgba(0,0,0,0.75),
-        inset 0 2px 6px rgba(255,255,255,0.04),
-        inset 0 -2px 6px rgba(0,0,0,0.4);
-    }
-
-    /* Grill marks */
-    .layer-patty::after {
-      content: '';
-      position: absolute;
-      inset: 6px 10px;
-      background: repeating-linear-gradient(
-        -35deg,
-        transparent 0px,
-        transparent 8px,
-        rgba(0,0,0,0.5) 8px,
-        rgba(0,0,0,0.5) 11px
-      );
-      border-radius: 5px;
-    }
-
-    /* BOTTOM BUN — same as top but flatter */
-    .layer-bottom-bun {
-      height: 42px;
-      border-radius: 20% 20% 50% 50%;
-      background: linear-gradient(180deg, #e8a020 0%, #c8860a 45%, #8B4513 100%);
-      order: 6;
-      transform: translateY(130px);
-      opacity: 0;
-      box-shadow:
-        0 10px 26px rgba(0,0,0,0.65),
-        inset 0 5px 10px rgba(255,255,255,0.08),
-        0 -3px 8px rgba(0,0,0,0.4);
-    }
-
-    /* Active states — make all layers snap to position */
-    .burger-layer.visible {
-      transform: translateX(0) translateY(0) !important;
-      opacity: 1 !important;
-    }
-
-    /* Right: story panel */
-    .burger-story-panel {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 3rem 4rem 3rem 2rem;
-      position: relative;
-    }
-
-    .chapter-indicator {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 2.5rem;
-    }
-
-    .chapter-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--gray2);
-      transition: background 0.4s, transform 0.4s;
-    }
-
-    .chapter-dot.active {
-      background: var(--amber);
-      transform: scale(1.4);
-    }
-
-    .story-chapter {
-      position: absolute;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      pointer-events: none;
-    }
-
-    .story-chapter.active {
-      opacity: 1;
-      transform: translateY(0);
-      position: relative;
-      pointer-events: auto;
-    }
-
-    .chapter-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 6rem;
-      line-height: 1;
-      color: rgba(245,158,11,0.12);
-      position: absolute;
-      top: -1.5rem;
-      left: -0.5rem;
-      pointer-events: none;
-    }
-
-    .chapter-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.35em;
-      color: var(--amber);
-      text-transform: uppercase;
-      margin-bottom: 0.8rem;
-      position: relative;
-    }
-
-    .chapter-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.05;
-      color: var(--white);
-      margin-bottom: 1rem;
-      position: relative;
-    }
-
-    .chapter-body {
-      font-size: 1rem;
-      font-weight: 300;
-      line-height: 1.8;
-      color: #ccc;
-      max-width: 380px;
-      position: relative;
-    }
-
-    .chapter-accent {
-      display: inline-block;
-      margin-top: 1.2rem;
-      padding: 0.3rem 1rem;
-      background: rgba(245,158,11,0.1);
-      border: 1px solid rgba(245,158,11,0.3);
-      border-radius: 100px;
-      font-size: 0.78rem;
-      color: var(--amber);
-      font-weight: 500;
-      letter-spacing: 0.05em;
-    }
-
-    /* progress bar */
-    .scroll-progress-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      background: var(--amber);
-      z-index: 9999;
-      transition: width 0.1s linear;
-      width: 0%;
-    }
-
-    /* ─── MENU SECTION ──────────────────────────────────── */
-    #menu {
-      padding: 8rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      text-align: center;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.4em;
-      color: var(--amber);
-      text-transform: uppercase;
-      margin-bottom: 0.8rem;
-    }
-
-    .section-title {
-      text-align: center;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      line-height: 1;
-      margin-bottom: 1rem;
-    }
-
-    .section-sub {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      font-weight: 300;
-      max-width: 480px;
-      margin: 0 auto 4rem;
-    }
-
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .menu-card {
-      background: var(--gray);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px;
-      padding: 2rem;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      transition: border-color 0.3s, box-shadow 0.3s;
-      transform-style: preserve-3d;
-      will-change: transform;
-    }
-
-    .menu-card:hover {
-      border-color: rgba(245,158,11,0.3);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(245,158,11,0.1);
-    }
-
-    .menu-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(245,158,11,0.06), transparent 40%);
-      opacity: 0;
-      transition: opacity 0.4s;
-      border-radius: 16px;
-    }
-
-    .menu-card:hover::before { opacity: 1; }
-
-    .card-emoji {
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
-      display: block;
-    }
-
-    .card-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.7rem;
-      letter-spacing: 0.04em;
-      margin-bottom: 0.4rem;
-    }
-
-    .card-desc {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      font-weight: 300;
-      margin-bottom: 1.2rem;
-    }
-
-    .card-price {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem;
-      color: var(--amber);
-    }
-
-    .card-badge {
-      position: absolute;
-      top: 1.2rem;
-      right: 1.2rem;
-      background: var(--amber);
-      color: #000;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      padding: 0.2rem 0.6rem;
-      border-radius: 100px;
-      text-transform: uppercase;
-    }
-
-    /* ─── WHY BURKINS ───────────────────────────────────── */
-    #why {
-      padding: 8rem 2rem;
-      background: linear-gradient(180deg, var(--bg) 0%, #0d0600 50%, var(--bg) 100%);
-    }
-
-    .why-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-top: 4rem;
-    }
-
-    .feature-box {
-      background: var(--gray);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 20px;
-      padding: 2.5rem 2rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s, border-color 0.3s;
-    }
-
-    .feature-box:hover {
-      transform: translateY(-6px);
-      border-color: rgba(245,158,11,0.25);
-    }
-
-    .feature-box::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--amber), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .feature-box:hover::after { opacity: 1; }
-
-    .feature-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: rgba(245,158,11,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      margin: 0 auto 1.5rem;
-      border: 1px solid rgba(245,158,11,0.2);
-    }
-
-    .feature-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
-      letter-spacing: 0.04em;
-      margin-bottom: 0.8rem;
-    }
-
-    .feature-body {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      line-height: 1.7;
-      font-weight: 300;
-    }
-
-    /* ─── FIND US ────────────────────────────────────────── */
-    #find-us {
-      padding: 8rem 2rem;
-      max-width: 900px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .find-us-card {
-      background: var(--gray);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 24px;
-      padding: 4rem 3rem;
-      margin-top: 3rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .find-us-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .address-block {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      align-items: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .address-item {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      font-size: 0.95rem;
-      color: #ccc;
-      font-weight: 300;
-    }
-
-    .address-item .icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(245,158,11,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      flex-shrink: 0;
-    }
-
-    .cta-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.85rem 2rem;
-      border-radius: 100px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform 0.2s, box-shadow 0.2s;
-      border: none;
-    }
-
-    .btn:hover { transform: translateY(-2px); }
-
-    .btn-primary {
-      background: var(--amber);
-      color: #000;
-      box-shadow: 0 4px 20px rgba(245,158,11,0.35);
-    }
-
-    .btn-primary:hover { box-shadow: 0 8px 30px rgba(245,158,11,0.5); }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--white);
-      border: 1.5px solid rgba(255,255,255,0.2);
-    }
-
-    .btn-outline:hover { border-color: var(--amber); color: var(--amber); }
-
-    .btn-whatsapp {
-      background: #25D366;
-      color: #000;
-      box-shadow: 0 4px 20px rgba(37,211,102,0.3);
-    }
-
-    .btn-whatsapp:hover { box-shadow: 0 8px 30px rgba(37,211,102,0.5); }
-
-    /* ─── FLOATING WHATSAPP BUTTON ───────────────────────── */
-    .wa-float {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      z-index: 9000;
-      background: #25D366;
-      color: #000;
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 6px 24px rgba(37,211,102,0.5);
-      text-decoration: none;
-      transition: transform 0.2s, box-shadow 0.2s;
-      animation: waPulse 2.5s infinite;
-    }
-
-    .wa-float:hover {
-      transform: scale(1.1) translateY(-2px);
-      box-shadow: 0 10px 30px rgba(37,211,102,0.65);
-    }
-
-    @keyframes waPulse {
-      0%, 100% { box-shadow: 0 6px 24px rgba(37,211,102,0.5); }
-      50% { box-shadow: 0 6px 32px rgba(37,211,102,0.75), 0 0 0 8px rgba(37,211,102,0.1); }
-    }
-
-    /* ─── FOOTER ─────────────────────────────────────────── */
-    footer {
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 3rem 2rem;
-      text-align: center;
-    }
-
-    .footer-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3rem;
-      letter-spacing: 0.1em;
-      color: var(--amber);
-      margin-bottom: 0.5rem;
-    }
-
-    .footer-tagline {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      font-weight: 300;
-      margin-bottom: 1.5rem;
-    }
-
-    .footer-copy {
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.2);
-      font-weight: 300;
-    }
-
-    /* ─── DIVIDER ─────────────────────────────────────────── */
-    .section-divider {
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--amber), transparent);
-      margin: 0 auto 3rem;
-      border-radius: 2px;
-    }
-
-    /* ─── SCROLL REVEAL ──────────────────────────────────── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .reveal.revealed {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-
-    /* ─── TABLET BREAKPOINT ──────────────────────────────── */
-    @media (max-width: 1024px) and (min-width: 769px) {
-      .menu-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    /* ─── MOBILE ─────────────────────────────────────────── */
-    @media (max-width: 768px) {
-
-      /* Hero */
-      #hero {
-        padding: 1rem;
-      }
-
-      .hero-eyebrow {
-        font-size: 0.72rem;
-        letter-spacing: 0.25em;
-        margin-bottom: 0.6rem;
-      }
-
-      .hero-tagline {
-        font-size: 0.85rem;
-      }
-
-      /* Burger story section — collapse tall scroll height on mobile */
-      #burger-story {
-        height: auto !important;
-        min-height: unset !important;
-      }
-
-      .burger-sticky {
-        position: relative !important;
-        height: auto !important;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 3rem 16px 2rem;
-        gap: 0;
-        background: radial-gradient(ellipse at 50% 30%, #1a0800 0%, var(--bg) 70%);
-        min-height: unset !important;
-      }
-
-      /* Burger on top */
-      .burger-visual {
-        order: 1;
-        padding: 1rem 0;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .burger-stack {
-        width: 100%;
-        max-width: 280px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2px;
-      }
-
-      .burger-stack .burger-layer {
-        width: 100%;
-      }
-
-      /* Mobile burger layers — start hidden, animate in via JS */
-      .burger-layer {
-        transform: translateX(0) translateY(0) !important;
-        opacity: 0 !important;
-        transition: opacity 0.6s ease !important;
-      }
-
-      .burger-layer.visible {
-        opacity: 1 !important;
-      }
-
-      /* Story panel — below burger */
-      .burger-story-panel {
-        order: 2;
-        padding: 1.5rem 0 1rem;
-        text-align: center;
-        width: 100%;
-      }
-
-      .chapter-indicator {
-        justify-content: center;
-        margin-bottom: 1.5rem;
-      }
-
-      /* Mobile chapters — stacked list, not overlapping */
-      .story-chapter {
-        position: relative !important;
-        opacity: 0;
-        transform: translateY(12px);
-        transition: opacity 0.5s ease, transform 0.5s ease !important;
-        display: block !important;
-        pointer-events: auto !important;
-        margin-bottom: 1.8rem;
-        padding: 1.2rem;
-        background: rgba(255,255,255,0.03);
-        border-radius: 12px;
-        border: 1px solid rgba(255,255,255,0.05);
-        text-align: left;
-      }
-
-      .story-chapter.active {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-        position: relative !important;
-      }
-
-      /* Hide the big ghost chapter number on mobile */
-      .chapter-num {
-        display: none;
-      }
-
-      .chapter-headline {
-        font-size: 1.6rem;
-      }
-
-      .chapter-body {
-        max-width: 100%;
-        font-size: 0.9rem;
-      }
-
-      /* Menu */
-      #menu {
-        padding: 4rem 16px;
-      }
-
-      .menu-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-
-      /* Why section */
-      #why {
-        padding: 4rem 16px;
-      }
-
-      .features-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        margin-top: 2rem;
-      }
-
-      /* Find us */
-      #find-us {
-        padding: 4rem 16px;
-      }
-
-      .find-us-card {
-        padding: 2rem 1.2rem;
-      }
-
-      .address-item {
-        font-size: 0.85rem;
-        text-align: left;
-      }
-
-      /* Footer */
-      footer {
-        padding: 2rem 16px;
-      }
-
-      /* Floating WA button smaller on mobile */
-      .wa-float {
-        width: 48px;
-        height: 48px;
-        bottom: 1.2rem;
-        right: 1.2rem;
-      }
-
-      .wa-float svg {
-        width: 22px;
-        height: 22px;
-      }
-    }
-
-    /* Tablet: 2-col menu grid */
-    @media (min-width: 480px) and (max-width: 768px) {
-      .menu-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#0a0a0a;--amber:#f59e0b;--amber2:#d97706;--white:#fff;
+      --glass:rgba(10,6,0,0.5);--glass-border:rgba(245,158,11,0.2);
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--white);font-family:'Poppins',sans-serif;overflow-x:hidden}
+
+    /* ── FIXED BURGER BACKGROUND ── */
+    #bg-burger{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      z-index:0;pointer-events:none;
+      display:flex;align-items:center;justify-content:center;
+      overflow:hidden;
+    }
+    .bg-burger-wrap{
+      position:relative;width:520px;height:520px;
+      opacity:0.18;
+      transform:rotate(-8deg);
+      filter:blur(0.5px);
+    }
+    /* BIG CSS BURGER */
+    .bg-layer{position:absolute;left:50%;transform:translateX(-50%)}
+    .bg-top-bun{
+      width:420px;height:110px;
+      background:linear-gradient(160deg,#f0a830 0%,#c8860a 40%,#7a3a0a 100%);
+      border-radius:55% 55% 20% 20%;
+      top:40px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.8),inset 0 -15px 30px rgba(0,0,0,0.4);
+    }
+    .bg-top-bun::before{
+      content:'';position:absolute;
+      top:28px;left:50%;transform:translateX(-50%);
+      width:8px;height:14px;border-radius:50%;
+      background:rgba(255,245,200,0.7);
+      box-shadow:-70px -5px 0 2px rgba(255,245,200,0.6),-40px -18px 0 2px rgba(255,245,200,0.65),
+        -10px -20px 0 2px rgba(255,245,200,0.6),25px -15px 0 2px rgba(255,245,200,0.65),
+        55px -4px 0 2px rgba(255,245,200,0.6),80px 8px 0 1px rgba(255,245,200,0.5),
+        -90px 8px 0 1px rgba(255,245,200,0.5),15px 8px 0 2px rgba(255,245,200,0.55);
+    }
+    .bg-lettuce{
+      width:450px;height:36px;
+      background:linear-gradient(160deg,#6abf3d 0%,#4a8c2a 50%,#1e3d12 100%);
+      border-radius:55% 45% 35% 55% / 70% 65% 45% 50%;
+      top:152px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.5);
+    }
+    .bg-cheese{
+      width:440px;height:18px;
+      background:linear-gradient(180deg,#fbbf24 0%,#f59e0b 100%);
+      top:188px;
+      clip-path:polygon(0% 0%,100% 0%,100% 55%,96% 100%,90% 55%,83% 100%,76% 55%,69% 100%,62% 55%,55% 100%,48% 55%,41% 100%,34% 55%,27% 100%,20% 55%,13% 100%,6% 55%,0% 100%);
+    }
+    .bg-patty{
+      width:400px;height:64px;
+      background:linear-gradient(155deg,#4a2000 0%,#2d1200 50%,#1a0800 100%);
+      border-radius:12px 12px 10px 10px;
+      top:204px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.8);
+    }
+    .bg-patty::after{
+      content:'';position:absolute;inset:8px 14px;
+      background:repeating-linear-gradient(-35deg,transparent 0,transparent 9px,rgba(0,0,0,0.45) 9px,rgba(0,0,0,0.45) 13px);
+      border-radius:6px;
+    }
+    .bg-bottom-bun{
+      width:430px;height:64px;
+      background:linear-gradient(180deg,#e8a020 0%,#c8860a 45%,#8B4513 100%);
+      border-radius:20% 20% 50% 50%;
+      top:268px;
+      box-shadow:0 20px 50px rgba(0,0,0,0.9);
+    }
+
+    /* ── DARK OVERLAY ── */
+    #bg-overlay{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      z-index:1;pointer-events:none;
+      background:radial-gradient(ellipse at center,rgba(10,4,0,0.55) 0%,rgba(5,2,0,0.82) 100%);
+    }
+
+    /* ── CONTENT WRAPPER ── */
+    .content{position:relative;z-index:2}
+
+    /* ── GLASS ── */
+    .glass{
+      background:var(--glass);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      border:1px solid var(--glass-border);
+      border-radius:16px;
+    }
+
+    /* ── NAV ── */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      padding:1rem 2rem;
+      display:flex;align-items:center;justify-content:space-between;
+      background:rgba(10,6,0,0.6);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(245,158,11,0.1);
+    }
+    .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:4px;color:var(--amber)}
+    .nav-cta{
+      padding:8px 20px;
+      background:var(--amber);color:#000;
+      font-weight:700;font-size:.82rem;letter-spacing:1px;text-transform:uppercase;
+      border-radius:8px;text-decoration:none;
+      transition:opacity .2s;
+    }
+    .nav-cta:hover{opacity:.85}
+
+    /* ── HERO ── */
+    #hero{
+      height:100vh;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      text-align:center;padding:2rem;
+    }
+    .hero-eyebrow{
+      font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;
+      color:var(--amber);margin-bottom:1.2rem;opacity:.9;
+    }
+    .hero-title{
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(5rem,20vw,18rem);
+      line-height:.88;letter-spacing:.02em;
+      animation:fadeUp .9s .3s both;
+    }
+    .hero-title span{color:var(--amber)}
+    .hero-tagline{
+      font-size:clamp(.9rem,2.5vw,1.2rem);color:rgba(255,255,255,.65);
+      margin-top:1.4rem;font-weight:300;letter-spacing:.1em;
+      animation:fadeUp .9s .55s both;
+    }
+    .hero-btn{
+      margin-top:2.5rem;
+      display:inline-flex;align-items:center;gap:.6rem;
+      padding:14px 32px;
+      background:rgba(245,158,11,.12);
+      border:1px solid var(--amber);
+      color:var(--amber);
+      font-family:'Poppins',sans-serif;font-weight:600;font-size:.9rem;
+      letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;
+      border-radius:50px;
+      backdrop-filter:blur(8px);
+      transition:all .25s;
+      animation:fadeUp .9s .75s both;
+    }
+    .hero-btn:hover{background:var(--amber);color:#000}
+    .scroll-hint{
+      margin-top:3rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;
+      font-size:.7rem;letter-spacing:.2em;color:rgba(255,255,255,.35);text-transform:uppercase;
+      animation:fadeUp .9s 1s both;
+    }
+    .scroll-arrow{
+      width:20px;height:20px;border-right:2px solid rgba(245,158,11,.5);border-bottom:2px solid rgba(245,158,11,.5);
+      transform:rotate(45deg);animation:bounce 1.4s infinite;
+    }
+    @keyframes bounce{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(6px)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+    /* ── SECTION COMMONS ── */
+    section{padding:6rem 2rem;position:relative}
+    .sec-label{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--amber);margin-bottom:.6rem}
+    .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);letter-spacing:.05em;line-height:1}
+    .sec-divider{width:50px;height:3px;background:linear-gradient(90deg,var(--amber),transparent);border-radius:2px;margin:1.2rem 0 1.5rem}
+    .sec-sub{color:rgba(255,255,255,.55);font-size:.95rem;font-weight:300;max-width:560px}
+
+    /* ── BURGER STORY ── */
+    #story{padding:0}
+    .story-scroll-wrap{height:700vh;position:relative}
+    .story-sticky{
+      position:sticky;top:0;height:100vh;
+      display:flex;align-items:center;justify-content:center;
+      gap:5vw;padding:2rem;
+      overflow:hidden;
+    }
+    /* Burger stack */
+    .story-burger{display:flex;flex-direction:column;align-items:center;gap:3px;width:300px;flex-shrink:0}
+    .s-layer{width:100%;transition:transform .7s cubic-bezier(.34,1.56,.64,1),opacity .5s ease}
+    .s-top-bun{height:72px;border-radius:55% 55% 20% 20%;background:linear-gradient(160deg,#f0a830 0%,#c8860a 38%,#8B4513 100%);box-shadow:0 -4px 20px rgba(200,134,10,.3),inset 0 -10px 20px rgba(0,0,0,.35),0 6px 14px rgba(0,0,0,.55);transform:translateY(-160px);opacity:0;position:relative}
+    .s-top-bun::before{content:'';position:absolute;top:20px;left:50%;transform:translateX(-50%);width:7px;height:12px;border-radius:50%;background:rgba(255,245,200,.9);box-shadow:-50px -4px 0 1px rgba(255,245,200,.85),-28px -12px 0 1px rgba(255,245,200,.8),-5px -14px 0 1px rgba(255,245,200,.8),20px -10px 0 1px rgba(255,245,200,.85),42px -3px 0 1px rgba(255,245,200,.8),60px 5px 0 0 rgba(255,245,200,.75),-62px 6px 0 0 rgba(255,245,200,.7),10px 6px 0 1px rgba(255,245,200,.7)}
+    .s-sauce{height:9px;background:linear-gradient(180deg,#e01f1f 0%,#cc1a1a 100%);border-radius:60% 40% 50% 60%/100% 100% 0% 0%;width:92%;transform:translateX(200px);opacity:0;box-shadow:0 3px 10px rgba(204,26,26,.55)}
+    .s-lettuce{height:26px;width:110%;background:linear-gradient(160deg,#6abf3d 0%,#4a8c2a 45%,#2d5a1b 80%,#1e3d12 100%);border-radius:55% 45% 35% 55%/70% 65% 45% 50%;transform:translateY(-90px);opacity:0;box-shadow:0 4px 12px rgba(45,90,27,.5)}
+    .s-cheese{height:14px;width:106%;background:linear-gradient(180deg,#fbbf24 0%,#f59e0b 100%);transform:translateY(-70px);opacity:0;box-shadow:0 4px 10px rgba(245,158,11,.45);clip-path:polygon(0% 0%,100% 0%,100% 55%,96% 100%,90% 55%,83% 100%,76% 55%,69% 100%,62% 55%,55% 100%,48% 55%,41% 100%,34% 55%,27% 100%,20% 55%,13% 100%,6% 55%,0% 100%)}
+    .s-patty{height:42px;width:96%;background:linear-gradient(155deg,#4a2000 0%,#2d1200 50%,#1a0800 100%);border-radius:10px 10px 8px 8px;transform:translateX(-200px);opacity:0;box-shadow:0 4px 18px rgba(0,0,0,.75),inset 0 2px 6px rgba(255,255,255,.04);position:relative}
+    .s-patty::after{content:'';position:absolute;inset:6px 10px;background:repeating-linear-gradient(-35deg,transparent 0,transparent 8px,rgba(0,0,0,.5) 8px,rgba(0,0,0,.5) 11px);border-radius:5px}
+    .s-bottom-bun{height:42px;border-radius:20% 20% 50% 50%;background:linear-gradient(180deg,#e8a020 0%,#c8860a 45%,#8B4513 100%);transform:translateY(130px);opacity:0;box-shadow:0 10px 26px rgba(0,0,0,.65),inset 0 5px 10px rgba(255,255,255,.08)}
+    .s-layer.in{transform:translateX(0) translateY(0) !important;opacity:1 !important}
+
+    /* Story text */
+    .story-text{max-width:380px;flex-shrink:0}
+    .story-dots{display:flex;gap:.5rem;margin-bottom:2rem}
+    .s-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .4s}
+    .s-dot.on{background:var(--amber);transform:scale(1.3)}
+    .story-chapter{display:none}
+    .story-chapter.on{display:block;animation:fadeUp .5s both}
+    .ch-label{font-size:.7rem;letter-spacing:.2em;color:var(--amber);text-transform:uppercase;margin-bottom:.5rem}
+    .ch-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);line-height:1;margin-bottom:1rem}
+    .ch-body{color:rgba(255,255,255,.6);font-size:.9rem;line-height:1.7;margin-bottom:1rem}
+    .ch-tag{font-size:.78rem;color:var(--amber);font-weight:600}
+
+    /* ── MENU ── */
+    #menu{max-width:1100px;margin:0 auto}
+    .menu-carousel-wrap{position:relative;margin-top:2.5rem}
+    .menu-carousel{
+      display:flex;gap:16px;
+      overflow-x:auto;scroll-snap-type:x mandatory;
+      scrollbar-width:none;-ms-overflow-style:none;
+      padding-bottom:8px;
+    }
+    .menu-carousel::-webkit-scrollbar{display:none}
+    .menu-card{
+      flex:0 0 calc(50% - 8px);scroll-snap-align:start;
+      padding:1.8rem;position:relative;cursor:default;
+      transition:transform .3s,box-shadow .3s;
+    }
+    .menu-card:hover{transform:translateY(-4px)}
+    .card-badge{
+      position:absolute;top:1rem;right:1rem;
+      background:var(--amber);color:#000;
+      font-size:.65rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+      padding:3px 10px;border-radius:50px;
+    }
+    .card-emoji{font-size:2.2rem;display:block;margin-bottom:.75rem}
+    .card-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:1.5px;margin-bottom:.5rem}
+    .card-desc{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:1rem}
+    .card-price{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--amber);letter-spacing:1px}
+    .carousel-btn{
+      position:absolute;top:50%;transform:translateY(-50%);
+      width:40px;height:40px;border-radius:50%;
+      background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);
+      color:var(--amber);font-size:1.1rem;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      transition:all .2s;z-index:5;
+    }
+    .carousel-btn:hover{background:var(--amber);color:#000}
+    .carousel-prev{left:-20px}
+    .carousel-next{right:-20px}
+
+    /* ── WHY BURKINS ── */
+    #why{max-width:900px;margin:0 auto}
+    .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2.5rem}
+    .why-card{padding:2rem;transition:transform .3s}
+    .why-card:hover{transform:translateY(-4px)}
+    .why-icon{font-size:2.2rem;margin-bottom:1rem}
+    .why-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:1.5px;margin-bottom:.6rem}
+    .why-body{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.7}
+
+    /* ── FIND US ── */
+    #find-us{max-width:700px;margin:0 auto;text-align:center}
+    .find-card{padding:2.5rem 2rem;margin-top:2.5rem}
+    .addr-row{display:flex;align-items:flex-start;gap:1rem;text-align:left;margin-bottom:1.2rem}
+    .addr-icon{font-size:1.2rem;flex-shrink:0;margin-top:.1rem}
+    .addr-text{font-size:.9rem;color:rgba(255,255,255,.7);line-height:1.6}
+    .cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
+    .btn-wa{
+      display:inline-flex;align-items:center;gap:.5rem;
+      padding:13px 28px;background:#25d366;color:#000;
+      font-weight:700;font-size:.88rem;letter-spacing:.8px;text-transform:uppercase;
+      border-radius:10px;text-decoration:none;transition:opacity .2s;
+    }
+    .btn-wa:hover{opacity:.88}
+    .btn-call{
+      display:inline-flex;align-items:center;gap:.5rem;
+      padding:13px 28px;
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);
+      color:#fff;font-weight:600;font-size:.88rem;
+      border-radius:10px;text-decoration:none;transition:all .2s;
+    }
+    .btn-call:hover{background:rgba(255,255,255,.12)}
+
+    /* ── FOOTER ── */
+    footer{
+      text-align:center;padding:3rem 2rem;
+      border-top:1px solid rgba(255,255,255,.06);position:relative;z-index:2;
+    }
+    .foot-logo{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:.1em;color:var(--amber)}
+    .foot-tag{font-size:.8rem;color:rgba(255,255,255,.35);margin-top:.4rem}
+
+    /* ── WA FLOAT ── */
+    .wa-float{
+      position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;
+      width:52px;height:52px;border-radius:50%;
+      background:#25d366;color:#fff;
+      display:flex;align-items:center;justify-content:center;
+      text-decoration:none;
+      box-shadow:0 6px 24px rgba(37,211,102,.5);
+      animation:waPulse 2s infinite;
+    }
+    @keyframes waPulse{0%,100%{box-shadow:0 6px 24px rgba(37,211,102,.5)}50%{box-shadow:0 6px 32px rgba(37,211,102,.75),0 0 0 8px rgba(37,211,102,.1)}}
+
+    /* ── REVEAL ── */
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+    .reveal.in{opacity:1;transform:translateY(0)}
+    .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+    /* ── MOBILE ── */
+    @media(max-width:768px){
+      nav{padding:.8rem 1rem}
+      section{padding:4rem 1rem}
+      .story-sticky{flex-direction:column;gap:2rem;height:auto;position:relative;padding:3rem 1rem}
+      .story-scroll-wrap{height:auto}
+      .story-burger{width:100%;max-width:260px}
+      .story-text{max-width:100%;text-align:center}
+      .story-dots{justify-content:center}
+      .menu-card{flex:0 0 calc(100% - 0px)}
+      .carousel-btn{display:none}
+      .why-grid{grid-template-columns:1fr}
+      .bg-burger-wrap{width:280px;height:280px;opacity:.12}
     }
   </style>
 </head>
 <body>
 
-  <!-- Progress bar -->
-  <div class="scroll-progress-bar" id="progressBar"></div>
+<!-- FIXED BG BURGER -->
+<div id="bg-burger">
+  <div class="bg-burger-wrap">
+    <div class="bg-layer bg-top-bun"></div>
+    <div class="bg-layer bg-lettuce"></div>
+    <div class="bg-layer bg-cheese"></div>
+    <div class="bg-layer bg-patty"></div>
+    <div class="bg-layer bg-bottom-bun"></div>
+  </div>
+</div>
+<div id="bg-overlay"></div>
 
-  <!-- Floating WhatsApp button -->
-  <a class="wa-float" href="https://wa.me/919876543210?text=Hi%20Burkins!%20I%20want%20to%20place%20an%20order" target="_blank" rel="noopener" aria-label="Order on WhatsApp">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-  </a>
+<!-- WA FLOAT -->
+<a class="wa-float" href="https://wa.me/917012345678?text=Hi%20Burkins!%20I%20want%20to%20order" target="_blank" rel="noopener" aria-label="Order on WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
 
-  <!-- ── HERO ── -->
+<div class="content">
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Burkins</div>
+    <a class="nav-cta" href="https://wa.me/917012345678?text=Hi%20Burkins!%20I%20want%20to%20order" target="_blank">Order Now</a>
+  </nav>
+
+  <!-- HERO -->
   <section id="hero">
     <div class="hero-eyebrow">Thodupuzha, Kerala</div>
     <h1 class="hero-title">BUR<span>K</span>INS</h1>
     <p class="hero-tagline">Where Every Bite Tells a Story</p>
-    <p class="hero-sub">Kerala's Most Legendary Smash Burger</p>
-    <div class="scroll-indicator">
-      <span>Scroll to build</span>
+    <a class="hero-btn" href="https://wa.me/917012345678?text=Hi%20Burkins!%20I%20want%20to%20order" target="_blank">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Order on WhatsApp
+    </a>
+    <div class="scroll-hint">
+      <span>Scroll to build your burger</span>
       <div class="scroll-arrow"></div>
     </div>
   </section>
 
-  <!-- ── BURGER STORY ── -->
-  <section id="burger-story">
-    <div class="burger-sticky" id="burgerSticky">
-
-      <!-- Burger visual -->
-      <div class="burger-visual">
-        <div class="burger-title-small">Building the Burger</div>
-        <div class="burger-stack" id="burgerStack">
-          <div class="burger-layer layer-top-bun"    id="layer-6"></div>
-          <div class="burger-layer layer-sauce"      id="layer-5"></div>
-          <div class="burger-layer layer-lettuce"    id="layer-4"></div>
-          <div class="burger-layer layer-cheese"     id="layer-3"></div>
-          <div class="burger-layer layer-patty"      id="layer-2"></div>
-          <div class="burger-layer layer-bottom-bun" id="layer-1"></div>
+  <!-- STORY -->
+  <section id="story">
+    <div class="story-scroll-wrap" id="storyWrap">
+      <div class="story-sticky" id="storySticky">
+        <!-- Burger -->
+        <div class="story-burger" id="sBurger">
+          <div class="s-layer s-top-bun"    id="sl6"></div>
+          <div class="s-layer s-sauce"      id="sl5"></div>
+          <div class="s-layer s-lettuce"    id="sl4"></div>
+          <div class="s-layer s-cheese"     id="sl3"></div>
+          <div class="s-layer s-patty"      id="sl2"></div>
+          <div class="s-layer s-bottom-bun" id="sl1"></div>
+        </div>
+        <!-- Text -->
+        <div class="story-text">
+          <div class="story-dots">
+            <div class="s-dot" id="sd0"></div><div class="s-dot" id="sd1"></div>
+            <div class="s-dot" id="sd2"></div><div class="s-dot" id="sd3"></div>
+            <div class="s-dot" id="sd4"></div><div class="s-dot" id="sd5"></div>
+          </div>
+          <div class="story-chapter" id="sc0">
+            <div class="ch-label">Chapter 01 — The Foundation</div>
+            <h2 class="ch-title">The Perfect Bun.</h2>
+            <p class="ch-body">It starts with the perfect bun. Baked fresh every morning in our kitchen. Golden, soft, and just sturdy enough to hold everything that's coming.</p>
+            <span class="ch-tag">🌅 Fresh daily — 6 AM bake</span>
+          </div>
+          <div class="story-chapter" id="sc1">
+            <div class="ch-label">Chapter 02 — The Smash</div>
+            <h2 class="ch-title">100% Pure Beef.</h2>
+            <p class="ch-body">Smashed to perfection on a 300°C griddle. That crust seals in every drop of flavour. No fillers. No shortcuts. Just beef.</p>
+            <span class="ch-tag">🔥 300°C smash technique</span>
+          </div>
+          <div class="story-chapter" id="sc2">
+            <div class="ch-label">Chapter 03 — The Melt</div>
+            <h2 class="ch-title">Three Layers of Cheddar.</h2>
+            <p class="ch-body">Three layers of aged cheddar, draped over the hot patty until it melts into every crevice. Because one is never enough.</p>
+            <span class="ch-tag">🧀 Aged Irish cheddar</span>
+          </div>
+          <div class="story-chapter" id="sc3">
+            <div class="ch-label">Chapter 04 — The Crunch</div>
+            <h2 class="ch-title">Crisp Kerala Lettuce.</h2>
+            <p class="ch-body">Crisp lettuce sourced from local Kerala farms, delivered fresh every single day. Cold crunch against warm beef.</p>
+            <span class="ch-tag">🌿 Local Kerala farms daily</span>
+          </div>
+          <div class="story-chapter" id="sc4">
+            <div class="ch-label">Chapter 05 — The Secret</div>
+            <h2 class="ch-title">11 Spices. One Sauce.</h2>
+            <p class="ch-body">Our secret sauce. Eleven spices. A recipe never written down. Made in-house since day one. You'll never figure it out.</p>
+            <span class="ch-tag">🤫 Recipe never leaves the kitchen</span>
+          </div>
+          <div class="story-chapter" id="sc5">
+            <div class="ch-label">Chapter 06 — The Legend</div>
+            <h2 class="ch-title">The Burkins Smash.</h2>
+            <p class="ch-body">The top bun lands. The story is complete. One burger, six layers, infinite flavour. Welcome to Burkins.</p>
+            <span class="ch-tag">🏆 Thodupuzha's #1 smash burger</span>
+          </div>
         </div>
       </div>
-
-      <!-- Story panel -->
-      <div class="burger-story-panel">
-        <div class="chapter-indicator">
-          <div class="chapter-dot" id="dot-0"></div>
-          <div class="chapter-dot" id="dot-1"></div>
-          <div class="chapter-dot" id="dot-2"></div>
-          <div class="chapter-dot" id="dot-3"></div>
-          <div class="chapter-dot" id="dot-4"></div>
-          <div class="chapter-dot" id="dot-5"></div>
-        </div>
-
-        <!-- Chapter 1: Bottom bun -->
-        <div class="story-chapter" id="chapter-0">
-          <div class="chapter-num">01</div>
-          <div class="chapter-label">The Foundation</div>
-          <h2 class="chapter-headline">The Perfect<br>Bun.</h2>
-          <p class="chapter-body">It starts with the perfect bun. Baked fresh every morning in our kitchen. Golden, soft, and just sturdy enough to hold everything that's coming.</p>
-          <span class="chapter-accent">🌅 Fresh daily — 6 AM bake</span>
-        </div>
-
-        <!-- Chapter 2: Patty -->
-        <div class="story-chapter" id="chapter-1">
-          <div class="chapter-num">02</div>
-          <div class="chapter-label">The Smash</div>
-          <h2 class="chapter-headline">100% Pure<br>Beef.</h2>
-          <p class="chapter-body">Smashed to perfection on a 300°C griddle. That crust — the Maillard magic — seals in every drop of flavour. No fillers. No shortcuts. Just beef.</p>
-          <span class="chapter-accent">🔥 300°C smash technique</span>
-        </div>
-
-        <!-- Chapter 3: Cheese -->
-        <div class="story-chapter" id="chapter-2">
-          <div class="chapter-num">03</div>
-          <div class="chapter-label">The Melt</div>
-          <h2 class="chapter-headline">Three Layers<br>of Cheddar.</h2>
-          <p class="chapter-body">Three layers of aged cheddar, draped over the hot patty until it melts into every crevice. Because one is never enough. Two is polite. Three is Burkins.</p>
-          <span class="chapter-accent">🧀 Aged Irish cheddar</span>
-        </div>
-
-        <!-- Chapter 4: Lettuce -->
-        <div class="story-chapter" id="chapter-3">
-          <div class="chapter-num">04</div>
-          <div class="chapter-label">The Crunch</div>
-          <h2 class="chapter-headline">Crisp Kerala<br>Lettuce.</h2>
-          <p class="chapter-body">Crisp lettuce sourced from local Kerala farms, delivered fresh every single day. The cold crunch against the warm beef is the contrast that makes the burger complete.</p>
-          <span class="chapter-accent">🌿 Local Kerala farms daily</span>
-        </div>
-
-        <!-- Chapter 5: Sauce -->
-        <div class="story-chapter" id="chapter-4">
-          <div class="chapter-num">05</div>
-          <div class="chapter-label">The Secret</div>
-          <h2 class="chapter-headline">11 Spices.<br>One Sauce.</h2>
-          <p class="chapter-body">Our secret sauce. Eleven spices. A recipe that's never been written down — only passed hand to hand. Made in-house since day one. You'll never figure it out. You'll never stop trying.</p>
-          <span class="chapter-accent">🤫 Recipe never leaves the kitchen</span>
-        </div>
-
-        <!-- Chapter 6: Top bun -->
-        <div class="story-chapter" id="chapter-5">
-          <div class="chapter-num">06</div>
-          <div class="chapter-label">The Legend</div>
-          <h2 class="chapter-headline">The Burkins<br>Smash.</h2>
-          <p class="chapter-body">The top bun lands. The story is complete. Ready to blow your mind. One burger, six layers, infinite flavour. Welcome to Burkins — Thodupuzha's most talked-about bite.</p>
-          <span class="chapter-accent">🏆 Thodupuzha's #1 smash burger</span>
-        </div>
-      </div>
-
     </div>
   </section>
 
-  <!-- ── MENU ── -->
+  <!-- MENU -->
   <section id="menu">
-    <div class="section-label reveal">Our Menu</div>
-    <h2 class="section-title reveal reveal-delay-1">Pick Your Story</h2>
-    <div class="section-divider reveal reveal-delay-2"></div>
-    <p class="section-sub reveal reveal-delay-3">Every burger is handcrafted. Every bite is intentional. Every visit is a memory.</p>
-
-    <div class="menu-grid">
-      <div class="menu-card reveal reveal-delay-1">
-        <div class="card-badge">Bestseller</div>
-        <span class="card-emoji">🍔</span>
-        <div class="card-name">The Classic Smash</div>
-        <p class="card-desc">Double smash patty, American cheese, pickles, onions, Burkins special sauce. The OG. The one that started it all.</p>
-        <div class="card-price">₹199</div>
+    <div class="sec-label reveal">Our Menu</div>
+    <h2 class="sec-title reveal d1">Pick Your Story</h2>
+    <div class="sec-divider reveal d2"></div>
+    <p class="sec-sub reveal d3">Every burger handcrafted. Every bite intentional.</p>
+    <div class="menu-carousel-wrap">
+      <button class="carousel-btn carousel-prev" id="cPrev">&#8592;</button>
+      <div class="menu-carousel" id="menuCarousel">
+        <div class="menu-card glass reveal">
+          <div class="card-badge">Bestseller</div>
+          <span class="card-emoji">🍔</span>
+          <div class="card-name">Classic Smash</div>
+          <p class="card-desc">Double smash patty, American cheese, pickles, onions, Burkins special sauce. The OG.</p>
+          <div class="card-price">₹199</div>
+        </div>
+        <div class="menu-card glass reveal d1">
+          <div class="card-badge">🌶 Spicy</div>
+          <span class="card-emoji">🔥</span>
+          <div class="card-name">Kerala Fire</div>
+          <p class="card-desc">Ghost pepper mayo, Kerala chilli relish, crispy shallots, iceberg lettuce. For the brave.</p>
+          <div class="card-price">₹229</div>
+        </div>
+        <div class="menu-card glass reveal">
+          <span class="card-emoji">🧀</span>
+          <div class="card-name">Triple Cheese Stack</div>
+          <p class="card-desc">Triple patty, three cheeses — cheddar, American, pepper jack. No regrets, only happiness.</p>
+          <div class="card-price">₹299</div>
+        </div>
+        <div class="menu-card glass reveal d1">
+          <div class="card-badge">New</div>
+          <span class="card-emoji">🥬</span>
+          <div class="card-name">Green Smash</div>
+          <p class="card-desc">Plant-based patty, avocado cream, sundried tomatoes, fresh Kerala herbs, garlic aioli.</p>
+          <div class="card-price">₹219</div>
+        </div>
+        <div class="menu-card glass reveal">
+          <span class="card-emoji">🐔</span>
+          <div class="card-name">Crispy Chicken</div>
+          <p class="card-desc">Buttermilk fried chicken thigh, coleslaw, pickled jalapeños, honey mustard. The rebel.</p>
+          <div class="card-price">₹209</div>
+        </div>
+        <div class="menu-card glass reveal d1">
+          <span class="card-emoji">🍟</span>
+          <div class="card-name">Burkins Box</div>
+          <p class="card-desc">Classic Smash + hand-cut fries + house soda. The full experience. The full story.</p>
+          <div class="card-price">₹329</div>
+        </div>
       </div>
-
-      <div class="menu-card reveal reveal-delay-2">
-        <div class="card-badge">🌶 Spicy</div>
-        <span class="card-emoji">🔥</span>
-        <div class="card-name">Kerala Fire Smash</div>
-        <p class="card-desc">Smash patty, ghost pepper mayo, Kerala chilli relish, crispy shallots, iceberg lettuce. For those who live on the edge.</p>
-        <div class="card-price">₹229</div>
-      </div>
-
-      <div class="menu-card reveal reveal-delay-3">
-        <span class="card-emoji">🧀</span>
-        <div class="card-name">Triple Cheese Stack</div>
-        <p class="card-desc">Triple patty, three cheeses (cheddar, American, pepper jack), caramelised onions, house pickles. No regrets, only happiness.</p>
-        <div class="card-price">₹299</div>
-      </div>
-
-      <div class="menu-card reveal reveal-delay-1">
-        <div class="card-badge">New</div>
-        <span class="card-emoji">🥬</span>
-        <div class="card-name">The Green Smash</div>
-        <p class="card-desc">Plant-based patty, avocado cream, sundried tomatoes, fresh Kerala herbs, garlic aioli. Plant-based, 100% Burkins.</p>
-        <div class="card-price">₹219</div>
-      </div>
-
-      <div class="menu-card reveal reveal-delay-2">
-        <span class="card-emoji">🐔</span>
-        <div class="card-name">Crispy Chicken Stack</div>
-        <p class="card-desc">Buttermilk fried chicken thigh, coleslaw, pickled jalapeños, honey mustard. The rebel of the menu.</p>
-        <div class="card-price">₹209</div>
-      </div>
-
-      <div class="menu-card reveal reveal-delay-3">
-        <span class="card-emoji">🍟</span>
-        <div class="card-name">The Burkins Box</div>
-        <p class="card-desc">Classic Smash + hand-cut fries + house soda. The full experience. The full story. The full satisfaction.</p>
-        <div class="card-price">₹329</div>
-      </div>
+      <button class="carousel-btn carousel-next" id="cNext">&#8594;</button>
     </div>
   </section>
 
-  <!-- ── WHY BURKINS ── -->
+  <!-- WHY BURKINS -->
   <section id="why">
-    <div class="why-inner">
-      <div class="section-label reveal">Why Burkins</div>
-      <h2 class="section-title reveal reveal-delay-1">What Sets Us Apart</h2>
-      <div class="section-divider reveal reveal-delay-2"></div>
-
-      <div class="features-grid">
-        <div class="feature-box reveal reveal-delay-1">
-          <div class="feature-icon">🔥</div>
-          <div class="feature-title">The Smash Technique</div>
-          <p class="feature-body">We press every patty onto a 300°C cast iron griddle. The result is a crispy, caramelised crust with a juicy centre. Science never tasted this good.</p>
-        </div>
-        <div class="feature-box reveal reveal-delay-2">
-          <div class="feature-icon">🌿</div>
-          <div class="feature-title">Locally Sourced</div>
-          <p class="feature-body">Every vegetable on our menu comes from Kerala farms within 50km. Fresher ingredients, better flavour, and we support the farmers who feed our state.</p>
-        </div>
-        <div class="feature-box reveal reveal-delay-3">
-          <div class="feature-icon">❤️</div>
-          <div class="feature-title">Made With Obsession</div>
-          <p class="feature-body">No frozen patties. No pre-made sauces from a bottle. Everything at Burkins is handmade, daily, with the kind of obsession only a burger place in Thodupuzha can have.</p>
-        </div>
+    <div class="sec-label reveal">Why Burkins</div>
+    <h2 class="sec-title reveal d1">What Sets Us Apart</h2>
+    <div class="sec-divider reveal d2"></div>
+    <div class="why-grid">
+      <div class="why-card glass reveal">
+        <div class="why-icon">🔥</div>
+        <div class="why-title">The Smash Technique</div>
+        <p class="why-body">We press every patty onto a 300°C cast iron griddle. The result is a crispy caramelised crust with a juicy centre. Science never tasted this good.</p>
+      </div>
+      <div class="why-card glass reveal d1">
+        <div class="why-icon">🌴</div>
+        <div class="why-title">Kerala Soul</div>
+        <p class="why-body">Every vegetable comes from Kerala farms within 50km. Fresher ingredients, better flavour, and we support the farmers who feed our state.</p>
       </div>
     </div>
   </section>
 
-  <!-- ── FIND US ── -->
+  <!-- FIND US -->
   <section id="find-us">
-    <div class="section-label reveal">Find Us</div>
-    <h2 class="section-title reveal reveal-delay-1">Come On Over</h2>
-    <div class="section-divider reveal reveal-delay-2"></div>
-
-    <div class="find-us-card reveal reveal-delay-2">
-      <div class="address-block">
-        <div class="address-item">
-          <div class="icon">📍</div>
-          <span>Main Road, Thodupuzha, Idukki District, Kerala — 685 584</span>
-        </div>
-        <div class="address-item">
-          <div class="icon">🕐</div>
-          <span>Mon – Sun: 11:00 AM – 11:00 PM</span>
-        </div>
-        <div class="address-item">
-          <div class="icon">📞</div>
-          <span>+91 98765 43210</span>
-        </div>
-      </div>
-
-      <div class="cta-buttons">
-        <a href="https://wa.me/919876543210?text=Hi%20Burkins!%20I%20want%20to%20place%20an%20order" class="btn btn-whatsapp" target="_blank" rel="noopener">
+    <div class="sec-label reveal">Find Us</div>
+    <h2 class="sec-title reveal d1">Come On Over</h2>
+    <div class="sec-divider reveal d2" style="margin:1.2rem auto 0"></div>
+    <div class="find-card glass reveal d2">
+      <div class="addr-row"><div class="addr-icon">📍</div><div class="addr-text">Near Private Bus Stand, Thodupuzha, Idukki District, Kerala — 685 584</div></div>
+      <div class="addr-row"><div class="addr-icon">🕐</div><div class="addr-text">Monday – Sunday: 11:00 AM – 11:00 PM</div></div>
+      <div class="addr-row"><div class="addr-icon">📞</div><div class="addr-text">+91 70123 45678</div></div>
+      <div class="cta-row">
+        <a href="https://wa.me/917012345678?text=Hi%20Burkins!%20I%20want%20to%20order" class="btn-wa" target="_blank">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Order on WhatsApp
         </a>
-        <a href="tel:+919876543210" class="btn btn-outline">
-          📞 Call Us
-        </a>
+        <a href="tel:+917012345678" class="btn-call">📞 Call Us</a>
       </div>
     </div>
   </section>
 
-  <!-- ── FOOTER ── -->
+  <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">BURKINS</div>
-    <p class="footer-tagline">Where Every Bite Tells a Story — Thodupuzha, Kerala</p>
-    <p class="footer-copy">© 2025 Burkins Burger Cafe. All burgers are made with love and no regrets.</p>
+    <div class="foot-logo">BURKINS</div>
+    <p class="foot-tag">Where Every Bite Tells a Story — Thodupuzha, Kerala &nbsp;|&nbsp; @burkins.official &nbsp;|&nbsp; © 2026</p>
   </footer>
+</div>
 
-  <script>
-    // ── SCROLL PROGRESS BAR ──────────────────────────────
-    const progressBar = document.getElementById('progressBar');
+<script>
+  const isMob = () => window.innerWidth <= 768;
+  const layers = [1,2,3,4,5,6].map(i => document.getElementById('sl'+i));
+  const chapters = [0,1,2,3,4,5].map(i => document.getElementById('sc'+i));
+  const dots = [0,1,2,3,4,5].map(i => document.getElementById('sd'+i));
+  let cur = -1;
 
-    // ── MOBILE DETECTION ─────────────────────────────────
-    const isMobile = () => window.innerWidth <= 768;
+  function goChapter(i) {
+    if(i===cur) return;
+    if(cur>=0){ chapters[cur].classList.remove('on'); dots[cur].classList.remove('on'); }
+    cur=i;
+    if(i<0) return;
+    layers[i].classList.add('in');
+    chapters[i].classList.add('on');
+    dots[i].classList.add('on');
+  }
 
-    // ── LAYER / CHAPTER REFERENCES ────────────────────────
-    const storySection = document.getElementById('burger-story');
-    const layers = [
-      document.getElementById('layer-1'),
-      document.getElementById('layer-2'),
-      document.getElementById('layer-3'),
-      document.getElementById('layer-4'),
-      document.getElementById('layer-5'),
-      document.getElementById('layer-6'),
-    ];
-    const chapters = [
-      document.getElementById('chapter-0'),
-      document.getElementById('chapter-1'),
-      document.getElementById('chapter-2'),
-      document.getElementById('chapter-3'),
-      document.getElementById('chapter-4'),
-      document.getElementById('chapter-5'),
-    ];
-    const dots = Array.from({ length: 6 }, (_, i) => document.getElementById(`dot-${i}`));
+  // Desktop scroll
+  const wrap = document.getElementById('storyWrap');
+  window.addEventListener('scroll', ()=>{
+    if(isMob()) return;
+    const rect = wrap.getBoundingClientRect();
+    const h = wrap.offsetHeight;
+    const scrolled = -rect.top;
+    if(scrolled<0 || scrolled>h) return;
+    const p = scrolled/h;
+    goChapter(Math.min(5, Math.floor(p/(1/7))));
+  }, {passive:true});
 
-    let currentChapter = -1;
-
-    function setChapter(idx) {
-      if (idx === currentChapter) return;
-
-      // Deactivate previous (desktop: hide; mobile: already shown)
-      if (currentChapter >= 0 && !isMobile()) {
-        chapters[currentChapter].classList.remove('active');
-        dots[currentChapter].classList.remove('active');
-      } else if (currentChapter >= 0 && isMobile()) {
-        dots[currentChapter].classList.remove('active');
-      }
-
-      currentChapter = idx;
-      if (idx < 0) return;
-
-      // Activate layer
-      layers[idx].classList.add('visible');
-
-      // Activate chapter text
-      chapters[idx].classList.add('active');
-      dots[idx].classList.add('active');
+  // Mobile auto-animate
+  let mobDone=false;
+  new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting && !mobDone && isMob()){
+      mobDone=true;
+      layers.forEach((_,i)=>setTimeout(()=>goChapter(i),i*800));
     }
+  },{threshold:0.2}).observe(document.getElementById('sBurger'));
 
-    // ── DESKTOP: SCROLL ANIMATION ─────────────────────────
-    function onScroll() {
-      const scrollY = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      progressBar.style.width = (scrollY / docHeight * 100) + '%';
+  // Carousel
+  const carousel = document.getElementById('menuCarousel');
+  document.getElementById('cNext').onclick = ()=>carousel.scrollBy({left:carousel.offsetWidth/2+8,behavior:'smooth'});
+  document.getElementById('cPrev').onclick = ()=>carousel.scrollBy({left:-(carousel.offsetWidth/2+8),behavior:'smooth'});
 
-      if (isMobile()) return; // mobile handled by IntersectionObserver
+  // Reveal
+  new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');} });
+  },{threshold:0.15}).observe(document.body);
 
-      const rect = storySection.getBoundingClientRect();
-      const sectionTop = scrollY + rect.top;
-      const sectionHeight = storySection.offsetHeight;
-      const scrolled = scrollY - sectionTop;
-
-      if (scrolled < 0 || scrolled > sectionHeight) return;
-
-      const progress = Math.max(0, Math.min(1, scrolled / sectionHeight));
-      const chapterSize = 1 / 7;
-      const chapterIdx = Math.min(5, Math.floor(progress / chapterSize));
-
-      setChapter(chapterIdx);
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    // ── MOBILE: INTERSECTIONOBSERVER AUTO-ANIMATION ───────
-    let mobileAnimated = false;
-
-    function animateMobileBurger() {
-      if (mobileAnimated) return;
-      mobileAnimated = true;
-
-      // Animate each layer in, one by one, 800ms apart
-      layers.forEach((layer, i) => {
-        setTimeout(() => {
-          layer.classList.add('visible');
-          // Reveal corresponding chapter below
-          chapters[i].classList.add('active');
-          dots[i].classList.add('active');
-          // Update currentChapter tracker
-          currentChapter = i;
-        }, i * 800);
-      });
-    }
-
-    function initMobileObserver() {
-      if (!isMobile()) return;
-
-      // On mobile, observe the burger stack itself (not the 700vh section)
-      const burgerStack = document.getElementById('burgerStack');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            animateMobileBurger();
-            observer.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      });
-
-      observer.observe(burgerStack);
-    }
-
-    // ── 3D CARD TILT ─────────────────────────────────────
-    document.querySelectorAll('.menu-card').forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const cx = rect.width / 2;
-        const cy = rect.height / 2;
-        const rotX = ((y - cy) / cy) * -8;
-        const rotY = ((x - cx) / cx) * 8;
-        card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
-        card.style.setProperty('--mouse-x', x + 'px');
-        card.style.setProperty('--mouse-y', y + 'px');
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-      });
-    });
-
-    // ── SCROLL REVEAL ─────────────────────────────────────
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-    // ── INIT ──────────────────────────────────────────────
-    window.addEventListener('load', () => {
-      if (isMobile()) {
-        initMobileObserver();
-      } else {
-        onScroll();
-      }
-    });
-
-    window.addEventListener('resize', () => {
-      if (isMobile() && !mobileAnimated) {
-        initMobileObserver();
-      }
-    });
-  </script>
+  const ro = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('in');});
+  },{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+</script>
 </body>
 </html>
