@@ -35,78 +35,18 @@
       transform: translate(-50%, -50%);
       z-index: 0;
       pointer-events: none;
-      width: 480px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      opacity: 0.9;
-      filter: drop-shadow(0 0 80px rgba(245,158,11,0.15));
+      width: 520px;
+      height: 520px;
+      opacity: 0.85;
+      filter: drop-shadow(0 0 60px rgba(245,158,11,0.2));
     }
-    /* Burger layers */
-    .bg-top-bun {
+    #bg-burger img {
       width: 100%;
-      height: 90px;
-      border-radius: 50% 50% 20% 20%;
-      background: linear-gradient(160deg, #f0a830 0%, #c8860a 38%, #7a3b10 100%);
-      box-shadow: 0 -6px 30px rgba(200,134,10,0.4), inset 0 -12px 24px rgba(0,0,0,0.4);
-      position: relative;
-    }
-    .bg-top-bun::before {
-      content: '';
-      position: absolute;
-      top: 22px; left: 50%;
-      transform: translateX(-50%);
-      width: 8px; height: 14px;
+      height: 100%;
+      object-fit: cover;
       border-radius: 50%;
-      background: rgba(255,245,200,0.9);
-      box-shadow: -55px -4px 0 1px rgba(255,245,200,0.85), -30px -14px 0 1px rgba(255,245,200,0.8),
-        -4px -16px 0 1px rgba(255,245,200,0.8), 24px -12px 0 1px rgba(255,245,200,0.85),
-        48px -3px 0 1px rgba(255,245,200,0.8), 68px 6px 0 0 rgba(255,245,200,0.7),
-        -70px 7px 0 0 rgba(255,245,200,0.7), 12px 7px 0 1px rgba(255,245,200,0.7);
-    }
-    .bg-sauce {
-      width: 88%;
-      height: 11px;
-      background: linear-gradient(180deg, #e01f1f, #cc1a1a);
-      border-radius: 60% 40% 50% 60% / 100% 100% 0 0;
-      box-shadow: 0 3px 14px rgba(204,26,26,0.6);
-    }
-    .bg-lettuce {
-      width: 112%;
-      height: 32px;
-      background: linear-gradient(160deg, #6abf3d, #4a8c2a 45%, #2d5a1b);
-      border-radius: 55% 45% 35% 55% / 70% 65% 45% 50%;
-      box-shadow: 0 4px 16px rgba(45,90,27,0.5);
-    }
-    .bg-cheese {
-      width: 108%;
-      height: 16px;
-      background: linear-gradient(180deg, #fbbf24, #f59e0b);
-      box-shadow: 0 4px 12px rgba(245,158,11,0.5);
-      clip-path: polygon(0% 0%, 100% 0%, 100% 55%, 96% 100%, 90% 55%, 83% 100%, 76% 55%, 69% 100%, 62% 55%, 55% 100%, 48% 55%, 41% 100%, 34% 55%, 27% 100%, 20% 55%, 13% 100%, 6% 55%, 0% 100%);
-    }
-    .bg-patty {
-      width: 96%;
-      height: 52px;
-      background: linear-gradient(155deg, #4a2000, #2d1200 50%, #1a0800);
-      border-radius: 10px 10px 8px 8px;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.8), inset 0 2px 8px rgba(255,255,255,0.04);
-      position: relative;
-    }
-    .bg-patty::after {
-      content: '';
-      position: absolute;
-      inset: 8px 12px;
-      background: repeating-linear-gradient(-35deg, transparent 0, transparent 8px, rgba(0,0,0,0.55) 8px, rgba(0,0,0,0.55) 11px);
-      border-radius: 5px;
-    }
-    .bg-bottom-bun {
-      width: 100%;
-      height: 52px;
-      border-radius: 20% 20% 50% 50%;
-      background: linear-gradient(180deg, #e8a020, #c8860a 45%, #7a3b10);
-      box-shadow: 0 14px 36px rgba(0,0,0,0.7), inset 0 5px 12px rgba(255,255,255,0.07);
+      mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
     }
 
     /* Page overlay so text stays readable */
@@ -139,17 +79,27 @@
 
     /* ── FLOATING WA ── */
     .wa-btn {
-      position: fixed; bottom: 1.5rem; right: 1.5rem;
-      width: 54px; height: 54px; border-radius: 50%;
-      background: #25d366; color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      z-index: 998; text-decoration: none;
-      box-shadow: 0 6px 24px rgba(37,211,102,0.5);
-      animation: pulse 2.5s infinite;
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #25d366;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.6);
+      animation: waPulse 2.5s infinite;
+      transition: transform 0.2s;
     }
-    @keyframes pulse {
-      0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,0.5); }
-      50% { box-shadow: 0 6px 32px rgba(37,211,102,0.75), 0 0 0 10px rgba(37,211,102,0.1); }
+    .wa-btn:hover { transform: scale(1.1); }
+    @keyframes waPulse {
+      0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.6); }
+      50% { box-shadow: 0 4px 28px rgba(37,211,102,0.8), 0 0 0 12px rgba(37,211,102,0.1); }
     }
 
     /* ── HERO ── */
@@ -486,12 +436,7 @@
 
   <!-- BG Burger -->
   <div id="bg-burger">
-    <div class="bg-top-bun"></div>
-    <div class="bg-sauce"></div>
-    <div class="bg-lettuce"></div>
-    <div class="bg-cheese"></div>
-    <div class="bg-patty"></div>
-    <div class="bg-bottom-bun"></div>
+    <img src="burger.png" alt="Burkins Smash Burger"/>
   </div>
   <div id="bg-overlay"></div>
 
