@@ -4,487 +4,649 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Burkins — Where Every Bite Tells a Story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --bg:#0a0a0a;--amber:#f59e0b;--amber2:#d97706;--white:#fff;
-      --glass:rgba(10,6,0,0.5);--glass-border:rgba(245,158,11,0.2);
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --amber: #f59e0b;
+      --amber-dark: #d97706;
+      --bg: #0a0600;
+      --glass: rgba(8, 4, 0, 0.55);
+      --glass-border: rgba(245,158,11,0.2);
+      --white: #ffffff;
+      --muted: rgba(255,255,255,0.55);
     }
-    html{scroll-behavior:smooth}
-    body{background:var(--bg);color:var(--white);font-family:'Poppins',sans-serif;overflow-x:hidden}
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    }
 
     /* ── FIXED BURGER BACKGROUND ── */
-    #bg-burger{
-      position:fixed;top:0;left:0;width:100%;height:100%;
-      z-index:0;pointer-events:none;
-      display:flex;align-items:center;justify-content:center;
-      overflow:hidden;
+    #bg-burger {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      pointer-events: none;
+      width: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 80px rgba(245,158,11,0.15));
     }
-    .bg-burger-wrap{
-      position:relative;width:520px;height:520px;
-      opacity:0.18;
-      transform:rotate(-8deg);
-      filter:blur(0.5px);
+    /* Burger layers */
+    .bg-top-bun {
+      width: 100%;
+      height: 90px;
+      border-radius: 50% 50% 20% 20%;
+      background: linear-gradient(160deg, #f0a830 0%, #c8860a 38%, #7a3b10 100%);
+      box-shadow: 0 -6px 30px rgba(200,134,10,0.4), inset 0 -12px 24px rgba(0,0,0,0.4);
+      position: relative;
     }
-    /* BIG CSS BURGER */
-    .bg-layer{position:absolute;left:50%;transform:translateX(-50%)}
-    .bg-top-bun{
-      width:420px;height:110px;
-      background:linear-gradient(160deg,#f0a830 0%,#c8860a 40%,#7a3a0a 100%);
-      border-radius:55% 55% 20% 20%;
-      top:40px;
-      box-shadow:0 20px 60px rgba(0,0,0,0.8),inset 0 -15px 30px rgba(0,0,0,0.4);
+    .bg-top-bun::before {
+      content: '';
+      position: absolute;
+      top: 22px; left: 50%;
+      transform: translateX(-50%);
+      width: 8px; height: 14px;
+      border-radius: 50%;
+      background: rgba(255,245,200,0.9);
+      box-shadow: -55px -4px 0 1px rgba(255,245,200,0.85), -30px -14px 0 1px rgba(255,245,200,0.8),
+        -4px -16px 0 1px rgba(255,245,200,0.8), 24px -12px 0 1px rgba(255,245,200,0.85),
+        48px -3px 0 1px rgba(255,245,200,0.8), 68px 6px 0 0 rgba(255,245,200,0.7),
+        -70px 7px 0 0 rgba(255,245,200,0.7), 12px 7px 0 1px rgba(255,245,200,0.7);
     }
-    .bg-top-bun::before{
-      content:'';position:absolute;
-      top:28px;left:50%;transform:translateX(-50%);
-      width:8px;height:14px;border-radius:50%;
-      background:rgba(255,245,200,0.7);
-      box-shadow:-70px -5px 0 2px rgba(255,245,200,0.6),-40px -18px 0 2px rgba(255,245,200,0.65),
-        -10px -20px 0 2px rgba(255,245,200,0.6),25px -15px 0 2px rgba(255,245,200,0.65),
-        55px -4px 0 2px rgba(255,245,200,0.6),80px 8px 0 1px rgba(255,245,200,0.5),
-        -90px 8px 0 1px rgba(255,245,200,0.5),15px 8px 0 2px rgba(255,245,200,0.55);
+    .bg-sauce {
+      width: 88%;
+      height: 11px;
+      background: linear-gradient(180deg, #e01f1f, #cc1a1a);
+      border-radius: 60% 40% 50% 60% / 100% 100% 0 0;
+      box-shadow: 0 3px 14px rgba(204,26,26,0.6);
     }
-    .bg-lettuce{
-      width:450px;height:36px;
-      background:linear-gradient(160deg,#6abf3d 0%,#4a8c2a 50%,#1e3d12 100%);
-      border-radius:55% 45% 35% 55% / 70% 65% 45% 50%;
-      top:152px;
-      box-shadow:0 8px 20px rgba(0,0,0,0.5);
+    .bg-lettuce {
+      width: 112%;
+      height: 32px;
+      background: linear-gradient(160deg, #6abf3d, #4a8c2a 45%, #2d5a1b);
+      border-radius: 55% 45% 35% 55% / 70% 65% 45% 50%;
+      box-shadow: 0 4px 16px rgba(45,90,27,0.5);
     }
-    .bg-cheese{
-      width:440px;height:18px;
-      background:linear-gradient(180deg,#fbbf24 0%,#f59e0b 100%);
-      top:188px;
-      clip-path:polygon(0% 0%,100% 0%,100% 55%,96% 100%,90% 55%,83% 100%,76% 55%,69% 100%,62% 55%,55% 100%,48% 55%,41% 100%,34% 55%,27% 100%,20% 55%,13% 100%,6% 55%,0% 100%);
+    .bg-cheese {
+      width: 108%;
+      height: 16px;
+      background: linear-gradient(180deg, #fbbf24, #f59e0b);
+      box-shadow: 0 4px 12px rgba(245,158,11,0.5);
+      clip-path: polygon(0% 0%, 100% 0%, 100% 55%, 96% 100%, 90% 55%, 83% 100%, 76% 55%, 69% 100%, 62% 55%, 55% 100%, 48% 55%, 41% 100%, 34% 55%, 27% 100%, 20% 55%, 13% 100%, 6% 55%, 0% 100%);
     }
-    .bg-patty{
-      width:400px;height:64px;
-      background:linear-gradient(155deg,#4a2000 0%,#2d1200 50%,#1a0800 100%);
-      border-radius:12px 12px 10px 10px;
-      top:204px;
-      box-shadow:0 8px 30px rgba(0,0,0,0.8);
+    .bg-patty {
+      width: 96%;
+      height: 52px;
+      background: linear-gradient(155deg, #4a2000, #2d1200 50%, #1a0800);
+      border-radius: 10px 10px 8px 8px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.8), inset 0 2px 8px rgba(255,255,255,0.04);
+      position: relative;
     }
-    .bg-patty::after{
-      content:'';position:absolute;inset:8px 14px;
-      background:repeating-linear-gradient(-35deg,transparent 0,transparent 9px,rgba(0,0,0,0.45) 9px,rgba(0,0,0,0.45) 13px);
-      border-radius:6px;
+    .bg-patty::after {
+      content: '';
+      position: absolute;
+      inset: 8px 12px;
+      background: repeating-linear-gradient(-35deg, transparent 0, transparent 8px, rgba(0,0,0,0.55) 8px, rgba(0,0,0,0.55) 11px);
+      border-radius: 5px;
     }
-    .bg-bottom-bun{
-      width:430px;height:64px;
-      background:linear-gradient(180deg,#e8a020 0%,#c8860a 45%,#8B4513 100%);
-      border-radius:20% 20% 50% 50%;
-      top:268px;
-      box-shadow:0 20px 50px rgba(0,0,0,0.9);
-    }
-
-    /* ── DARK OVERLAY ── */
-    #bg-overlay{
-      position:fixed;top:0;left:0;width:100%;height:100%;
-      z-index:1;pointer-events:none;
-      background:radial-gradient(ellipse at center,rgba(10,4,0,0.55) 0%,rgba(5,2,0,0.82) 100%);
-    }
-
-    /* ── CONTENT WRAPPER ── */
-    .content{position:relative;z-index:2}
-
-    /* ── GLASS ── */
-    .glass{
-      background:var(--glass);
-      backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px);
-      border:1px solid var(--glass-border);
-      border-radius:16px;
+    .bg-bottom-bun {
+      width: 100%;
+      height: 52px;
+      border-radius: 20% 20% 50% 50%;
+      background: linear-gradient(180deg, #e8a020, #c8860a 45%, #7a3b10);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.7), inset 0 5px 12px rgba(255,255,255,0.07);
     }
 
-    /* ── NAV ── */
-    nav{
-      position:fixed;top:0;left:0;right:0;z-index:100;
-      padding:1rem 2rem;
-      display:flex;align-items:center;justify-content:space-between;
-      background:rgba(10,6,0,0.6);
-      backdrop-filter:blur(12px);
-      border-bottom:1px solid rgba(245,158,11,0.1);
+    /* Page overlay so text stays readable */
+    #bg-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background: radial-gradient(ellipse at center, rgba(10,6,0,0.55) 0%, rgba(10,6,0,0.75) 100%);
+      pointer-events: none;
     }
-    .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:4px;color:var(--amber)}
-    .nav-cta{
-      padding:8px 20px;
-      background:var(--amber);color:#000;
-      font-weight:700;font-size:.82rem;letter-spacing:1px;text-transform:uppercase;
-      border-radius:8px;text-decoration:none;
-      transition:opacity .2s;
+
+    /* All content sits above */
+    body > *:not(#bg-burger):not(#bg-overlay) { position: relative; z-index: 2; }
+
+    /* ── GLASS CARD ── */
+    .glass {
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
     }
-    .nav-cta:hover{opacity:.85}
+
+    /* ── SCROLL PROGRESS ── */
+    #progress {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: var(--amber); z-index: 999;
+      width: 0%; transition: width 0.1s;
+    }
+
+    /* ── FLOATING WA ── */
+    .wa-btn {
+      position: fixed; bottom: 1.5rem; right: 1.5rem;
+      width: 54px; height: 54px; border-radius: 50%;
+      background: #25d366; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 998; text-decoration: none;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+      animation: pulse 2.5s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,0.5); }
+      50% { box-shadow: 0 6px 32px rgba(37,211,102,0.75), 0 0 0 10px rgba(37,211,102,0.1); }
+    }
 
     /* ── HERO ── */
-    #hero{
-      height:100vh;display:flex;flex-direction:column;
-      align-items:center;justify-content:center;
-      text-align:center;padding:2rem;
+    #hero {
+      height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 2rem;
     }
-    .hero-eyebrow{
-      font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;
-      color:var(--amber);margin-bottom:1.2rem;opacity:.9;
+    .hero-tag {
+      font-size: 0.72rem; letter-spacing: 0.3em;
+      color: var(--amber); text-transform: uppercase;
+      margin-bottom: 1rem;
     }
-    .hero-title{
-      font-family:'Bebas Neue',sans-serif;
-      font-size:clamp(5rem,20vw,18rem);
-      line-height:.88;letter-spacing:.02em;
-      animation:fadeUp .9s .3s both;
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 20vw, 18rem);
+      line-height: 0.88;
+      letter-spacing: 0.02em;
+      color: #fff;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.3s forwards;
     }
-    .hero-title span{color:var(--amber)}
-    .hero-tagline{
-      font-size:clamp(.9rem,2.5vw,1.2rem);color:rgba(255,255,255,.65);
-      margin-top:1.4rem;font-weight:300;letter-spacing:.1em;
-      animation:fadeUp .9s .55s both;
+    .hero-title span { color: var(--amber); }
+    .hero-tagline {
+      font-size: clamp(0.9rem, 2vw, 1.2rem);
+      color: var(--muted); margin: 1.2rem 0 2rem;
+      font-weight: 300; letter-spacing: 0.05em;
+      opacity: 0; animation: fadeUp 0.9s 0.6s forwards;
     }
-    .hero-btn{
-      margin-top:2.5rem;
-      display:inline-flex;align-items:center;gap:.6rem;
-      padding:14px 32px;
-      background:rgba(245,158,11,.12);
-      border:1px solid var(--amber);
-      color:var(--amber);
-      font-family:'Poppins',sans-serif;font-weight:600;font-size:.9rem;
-      letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;
-      border-radius:50px;
-      backdrop-filter:blur(8px);
-      transition:all .25s;
-      animation:fadeUp .9s .75s both;
+    .hero-cta {
+      display: inline-block;
+      padding: 0.9rem 2.5rem;
+      background: rgba(245,158,11,0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(245,158,11,0.5);
+      border-radius: 50px;
+      color: var(--amber);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600; font-size: 0.9rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+      opacity: 0; animation: fadeUp 0.9s 0.9s forwards;
     }
-    .hero-btn:hover{background:var(--amber);color:#000}
-    .scroll-hint{
-      margin-top:3rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;
-      font-size:.7rem;letter-spacing:.2em;color:rgba(255,255,255,.35);text-transform:uppercase;
-      animation:fadeUp .9s 1s both;
+    .hero-cta:hover {
+      background: rgba(245,158,11,0.3);
+      transform: translateY(-2px);
     }
-    .scroll-arrow{
-      width:20px;height:20px;border-right:2px solid rgba(245,158,11,.5);border-bottom:2px solid rgba(245,158,11,.5);
-      transform:rotate(45deg);animation:bounce 1.4s infinite;
+    .scroll-hint {
+      position: absolute; bottom: 2rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      color: var(--muted); font-size: 0.7rem; letter-spacing: 0.15em;
+      animation: bounce 2s infinite;
     }
-    @keyframes bounce{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(6px)}}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    .scroll-hint::after {
+      content: '↓'; font-size: 1.2rem; color: var(--amber);
+    }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-    /* ── SECTION COMMONS ── */
-    section{padding:6rem 2rem;position:relative}
-    .sec-label{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--amber);margin-bottom:.6rem}
-    .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);letter-spacing:.05em;line-height:1}
-    .sec-divider{width:50px;height:3px;background:linear-gradient(90deg,var(--amber),transparent);border-radius:2px;margin:1.2rem 0 1.5rem}
-    .sec-sub{color:rgba(255,255,255,.55);font-size:.95rem;font-weight:300;max-width:560px}
+    /* ── SECTION COMMON ── */
+    section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .sec-label {
+      font-size: 0.72rem; letter-spacing: 0.3em; color: var(--amber);
+      text-transform: uppercase; margin-bottom: 0.6rem;
+    }
+    .sec-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      letter-spacing: 0.03em; line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .sec-divider {
+      width: 50px; height: 3px;
+      background: linear-gradient(90deg, var(--amber), transparent);
+      border-radius: 2px; margin-bottom: 1.5rem;
+    }
 
-    /* ── BURGER STORY ── */
-    #story{padding:0}
-    .story-scroll-wrap{height:700vh;position:relative}
-    .story-sticky{
-      position:sticky;top:0;height:100vh;
-      display:flex;align-items:center;justify-content:center;
-      gap:5vw;padding:2rem;
-      overflow:hidden;
+    /* ── STORY SECTION ── */
+    #story-wrap {
+      height: 500vh;
+      position: relative;
     }
-    /* Burger stack */
-    .story-burger{display:flex;flex-direction:column;align-items:center;gap:3px;width:300px;flex-shrink:0}
-    .s-layer{width:100%;transition:transform .7s cubic-bezier(.34,1.56,.64,1),opacity .5s ease}
-    .s-top-bun{height:72px;border-radius:55% 55% 20% 20%;background:linear-gradient(160deg,#f0a830 0%,#c8860a 38%,#8B4513 100%);box-shadow:0 -4px 20px rgba(200,134,10,.3),inset 0 -10px 20px rgba(0,0,0,.35),0 6px 14px rgba(0,0,0,.55);transform:translateY(-160px);opacity:0;position:relative}
-    .s-top-bun::before{content:'';position:absolute;top:20px;left:50%;transform:translateX(-50%);width:7px;height:12px;border-radius:50%;background:rgba(255,245,200,.9);box-shadow:-50px -4px 0 1px rgba(255,245,200,.85),-28px -12px 0 1px rgba(255,245,200,.8),-5px -14px 0 1px rgba(255,245,200,.8),20px -10px 0 1px rgba(255,245,200,.85),42px -3px 0 1px rgba(255,245,200,.8),60px 5px 0 0 rgba(255,245,200,.75),-62px 6px 0 0 rgba(255,245,200,.7),10px 6px 0 1px rgba(255,245,200,.7)}
-    .s-sauce{height:9px;background:linear-gradient(180deg,#e01f1f 0%,#cc1a1a 100%);border-radius:60% 40% 50% 60%/100% 100% 0% 0%;width:92%;transform:translateX(200px);opacity:0;box-shadow:0 3px 10px rgba(204,26,26,.55)}
-    .s-lettuce{height:26px;width:110%;background:linear-gradient(160deg,#6abf3d 0%,#4a8c2a 45%,#2d5a1b 80%,#1e3d12 100%);border-radius:55% 45% 35% 55%/70% 65% 45% 50%;transform:translateY(-90px);opacity:0;box-shadow:0 4px 12px rgba(45,90,27,.5)}
-    .s-cheese{height:14px;width:106%;background:linear-gradient(180deg,#fbbf24 0%,#f59e0b 100%);transform:translateY(-70px);opacity:0;box-shadow:0 4px 10px rgba(245,158,11,.45);clip-path:polygon(0% 0%,100% 0%,100% 55%,96% 100%,90% 55%,83% 100%,76% 55%,69% 100%,62% 55%,55% 100%,48% 55%,41% 100%,34% 55%,27% 100%,20% 55%,13% 100%,6% 55%,0% 100%)}
-    .s-patty{height:42px;width:96%;background:linear-gradient(155deg,#4a2000 0%,#2d1200 50%,#1a0800 100%);border-radius:10px 10px 8px 8px;transform:translateX(-200px);opacity:0;box-shadow:0 4px 18px rgba(0,0,0,.75),inset 0 2px 6px rgba(255,255,255,.04);position:relative}
-    .s-patty::after{content:'';position:absolute;inset:6px 10px;background:repeating-linear-gradient(-35deg,transparent 0,transparent 8px,rgba(0,0,0,.5) 8px,rgba(0,0,0,.5) 11px);border-radius:5px}
-    .s-bottom-bun{height:42px;border-radius:20% 20% 50% 50%;background:linear-gradient(180deg,#e8a020 0%,#c8860a 45%,#8B4513 100%);transform:translateY(130px);opacity:0;box-shadow:0 10px 26px rgba(0,0,0,.65),inset 0 5px 10px rgba(255,255,255,.08)}
-    .s-layer.in{transform:translateX(0) translateY(0) !important;opacity:1 !important}
+    #story-sticky {
+      position: sticky; top: 0; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      gap: 5vw;
+      padding: 2rem;
+      overflow: hidden;
+    }
+    .story-burger {
+      flex-shrink: 0;
+      width: 260px;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 3px;
+    }
+    /* Reuse bg-burger layer styles but smaller */
+    .sb-top-bun {
+      width: 100%; height: 65px; border-radius: 50% 50% 20% 20%;
+      background: linear-gradient(160deg, #f0a830 0%, #c8860a 38%, #7a3b10 100%);
+      box-shadow: 0 -4px 20px rgba(200,134,10,0.4), inset 0 -10px 20px rgba(0,0,0,0.4);
+      position: relative;
+      transform: translateY(-120px); opacity: 0;
+      transition: transform 0.7s cubic-bezier(0.34,1.56,0.64,1), opacity 0.5s;
+    }
+    .sb-top-bun::before {
+      content: '';
+      position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+      width: 6px; height: 10px; border-radius: 50%;
+      background: rgba(255,245,200,0.9);
+      box-shadow: -38px -3px 0 1px rgba(255,245,200,0.85), -22px -10px 0 1px rgba(255,245,200,0.8),
+        -3px -12px 0 1px rgba(255,245,200,0.8), 18px -8px 0 1px rgba(255,245,200,0.85),
+        34px -2px 0 1px rgba(255,245,200,0.8), 48px 4px 0 0 rgba(255,245,200,0.7);
+    }
+    .sb-sauce {
+      width: 88%; height: 8px;
+      background: linear-gradient(180deg, #e01f1f, #cc1a1a);
+      border-radius: 60% 40% 50% 60% / 100% 100% 0 0;
+      transform: translateX(200px); opacity: 0;
+      transition: transform 0.7s cubic-bezier(0.34,1.56,0.64,1), opacity 0.5s;
+    }
+    .sb-lettuce {
+      width: 112%; height: 24px;
+      background: linear-gradient(160deg, #6abf3d, #4a8c2a 45%, #2d5a1b);
+      border-radius: 55% 45% 35% 55% / 70% 65% 45% 50%;
+      transform: translateY(-60px); opacity: 0;
+      transition: transform 0.7s cubic-bezier(0.34,1.56,0.64,1), opacity 0.5s;
+    }
+    .sb-cheese {
+      width: 108%; height: 12px;
+      background: linear-gradient(180deg, #fbbf24, #f59e0b);
+      clip-path: polygon(0% 0%, 100% 0%, 100% 55%, 96% 100%, 90% 55%, 83% 100%, 76% 55%, 69% 100%, 62% 55%, 55% 100%, 48% 55%, 41% 100%, 34% 55%, 27% 100%, 20% 55%, 13% 100%, 6% 55%, 0% 100%);
+      transform: translateY(-50px); opacity: 0;
+      transition: transform 0.7s cubic-bezier(0.34,1.56,0.64,1), opacity 0.5s;
+    }
+    .sb-patty {
+      width: 96%; height: 38px;
+      background: linear-gradient(155deg, #4a2000, #2d1200 50%, #1a0800);
+      border-radius: 10px 10px 8px 8px;
+      position: relative;
+      transform: translateX(-200px); opacity: 0;
+      transition: transform 0.7s cubic-bezier(0.34,1.56,0.64,1), opacity 0.5s;
+    }
+    .sb-patty::after {
+      content: ''; position: absolute; inset: 6px 10px;
+      background: repeating-linear-gradient(-35deg, transparent 0, transparent 7px, rgba(0,0,0,0.55) 7px, rgba(0,0,0,0.55) 10px);
+      border-radius: 4px;
+    }
+    .sb-bottom-bun {
+      width: 100%; height: 38px;
+      border-radius: 20% 20% 50% 50%;
+      background: linear-gradient(180deg, #e8a020, #c8860a 45%, #7a3b10);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.7);
+      transform: translateY(100px); opacity: 0;
+      transition: transform 0.7s cubic-bezier(0.34,1.56,0.64,1), opacity 0.5s;
+    }
+    .sb-layer.in { transform: translate(0,0) !important; opacity: 1 !important; }
 
-    /* Story text */
-    .story-text{max-width:380px;flex-shrink:0}
-    .story-dots{display:flex;gap:.5rem;margin-bottom:2rem}
-    .s-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .4s}
-    .s-dot.on{background:var(--amber);transform:scale(1.3)}
-    .story-chapter{display:none}
-    .story-chapter.on{display:block;animation:fadeUp .5s both}
-    .ch-label{font-size:.7rem;letter-spacing:.2em;color:var(--amber);text-transform:uppercase;margin-bottom:.5rem}
-    .ch-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);line-height:1;margin-bottom:1rem}
-    .ch-body{color:rgba(255,255,255,.6);font-size:.9rem;line-height:1.7;margin-bottom:1rem}
-    .ch-tag{font-size:.78rem;color:var(--amber);font-weight:600}
+    /* Story text panel */
+    .story-text {
+      max-width: 420px;
+    }
+    .story-chapter {
+      position: absolute; opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s, transform 0.5s;
+      pointer-events: none;
+    }
+    .story-chapter.active {
+      opacity: 1; transform: translateY(0);
+      position: relative; pointer-events: auto;
+    }
+    .ch-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 6rem; color: rgba(245,158,11,0.08);
+      line-height: 1; position: absolute; top: -1rem; left: -1rem;
+    }
+    .ch-label {
+      font-size: 0.7rem; letter-spacing: 0.25em;
+      color: var(--amber); text-transform: uppercase; margin-bottom: 0.5rem;
+    }
+    .ch-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1; margin-bottom: 0.75rem;
+    }
+    .ch-body { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.75rem; }
+    .ch-tag {
+      display: inline-block; font-size: 0.75rem; font-weight: 600;
+      color: var(--amber); background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.25);
+      padding: 4px 14px; border-radius: 50px;
+    }
+    .ch-dots {
+      display: flex; gap: 0.5rem; margin-top: 2rem;
+    }
+    .ch-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      transition: all 0.3s;
+    }
+    .ch-dot.on { background: var(--amber); width: 20px; border-radius: 3px; }
 
-    /* ── MENU ── */
-    #menu{max-width:1100px;margin:0 auto}
-    .menu-carousel-wrap{position:relative;margin-top:2.5rem}
-    .menu-carousel{
-      display:flex;gap:16px;
-      overflow-x:auto;scroll-snap-type:x mandatory;
-      scrollbar-width:none;-ms-overflow-style:none;
-      padding-bottom:8px;
+    /* ── MENU CAROUSEL ── */
+    #menu { max-width: 1100px; }
+    .carousel-wrap { position: relative; }
+    .carousel {
+      display: flex; gap: 16px;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; padding-bottom: 0.5rem;
     }
-    .menu-carousel::-webkit-scrollbar{display:none}
-    .menu-card{
-      flex:0 0 calc(50% - 8px);scroll-snap-align:start;
-      padding:1.8rem;position:relative;cursor:default;
-      transition:transform .3s,box-shadow .3s;
+    .carousel::-webkit-scrollbar { display: none; }
+    .menu-card {
+      flex: 0 0 calc(50% - 8px);
+      scroll-snap-align: start;
+      padding: 1.8rem 1.5rem;
+      cursor: default;
+      transition: transform 0.3s;
     }
-    .menu-card:hover{transform:translateY(-4px)}
-    .card-badge{
-      position:absolute;top:1rem;right:1rem;
-      background:var(--amber);color:#000;
-      font-size:.65rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;
-      padding:3px 10px;border-radius:50px;
+    .menu-card:hover { transform: translateY(-4px); }
+    .card-badge {
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.35);
+      color: var(--amber); padding: 3px 12px; border-radius: 50px;
+      margin-bottom: 1rem;
     }
-    .card-emoji{font-size:2.2rem;display:block;margin-bottom:.75rem}
-    .card-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:1.5px;margin-bottom:.5rem}
-    .card-desc{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:1rem}
-    .card-price{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--amber);letter-spacing:1px}
-    .carousel-btn{
-      position:absolute;top:50%;transform:translateY(-50%);
-      width:40px;height:40px;border-radius:50%;
-      background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);
-      color:var(--amber);font-size:1.1rem;cursor:pointer;
-      display:flex;align-items:center;justify-content:center;
-      transition:all .2s;z-index:5;
+    .card-emoji { font-size: 2.5rem; display: block; margin-bottom: 0.75rem; }
+    .card-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem; letter-spacing: 0.05em; margin-bottom: 0.5rem;
     }
-    .carousel-btn:hover{background:var(--amber);color:#000}
-    .carousel-prev{left:-20px}
-    .carousel-next{right:-20px}
+    .card-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+    .card-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem; color: var(--amber);
+    }
+    .carousel-nav {
+      display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 1rem;
+    }
+    .carousel-btn {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
+      color: var(--amber); font-size: 1rem; cursor: pointer;
+      transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+    }
+    .carousel-btn:hover { background: rgba(245,158,11,0.25); }
 
     /* ── WHY BURKINS ── */
-    #why{max-width:900px;margin:0 auto}
-    .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2.5rem}
-    .why-card{padding:2rem;transition:transform .3s}
-    .why-card:hover{transform:translateY(-4px)}
-    .why-icon{font-size:2.2rem;margin-bottom:1rem}
-    .why-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:1.5px;margin-bottom:.6rem}
-    .why-body{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.7}
+    #why .why-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.25rem; margin-top: 2rem;
+    }
+    .why-card {
+      padding: 2rem 1.5rem;
+      transition: transform 0.3s;
+    }
+    .why-card:hover { transform: translateY(-4px); }
+    .why-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+    .why-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem; letter-spacing: 0.05em; margin-bottom: 0.5rem;
+    }
+    .why-body { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
 
     /* ── FIND US ── */
-    #find-us{max-width:700px;margin:0 auto;text-align:center}
-    .find-card{padding:2.5rem 2rem;margin-top:2.5rem}
-    .addr-row{display:flex;align-items:flex-start;gap:1rem;text-align:left;margin-bottom:1.2rem}
-    .addr-icon{font-size:1.2rem;flex-shrink:0;margin-top:.1rem}
-    .addr-text{font-size:.9rem;color:rgba(255,255,255,.7);line-height:1.6}
-    .cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
-    .btn-wa{
-      display:inline-flex;align-items:center;gap:.5rem;
-      padding:13px 28px;background:#25d366;color:#000;
-      font-weight:700;font-size:.88rem;letter-spacing:.8px;text-transform:uppercase;
-      border-radius:10px;text-decoration:none;transition:opacity .2s;
+    #findus .find-card {
+      padding: 2.5rem; margin-top: 2rem;
     }
-    .btn-wa:hover{opacity:.88}
-    .btn-call{
-      display:inline-flex;align-items:center;gap:.5rem;
-      padding:13px 28px;
-      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);
-      color:#fff;font-weight:600;font-size:.88rem;
-      border-radius:10px;text-decoration:none;transition:all .2s;
+    .addr-row {
+      display: flex; align-items: flex-start; gap: 1rem;
+      margin-bottom: 1.1rem; font-size: 0.9rem;
     }
-    .btn-call:hover{background:rgba(255,255,255,.12)}
+    .addr-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+    .addr-text { color: var(--muted); }
+    .find-btns { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 2rem; border-radius: 50px;
+      background: rgba(37,211,102,0.15); border: 1px solid rgba(37,211,102,0.4);
+      color: #25d366; font-weight: 600; font-size: 0.88rem;
+      text-decoration: none; transition: all 0.3s;
+    }
+    .btn-wa:hover { background: rgba(37,211,102,0.25); }
+    .btn-call {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 2rem; border-radius: 50px;
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.35);
+      color: var(--amber); font-weight: 600; font-size: 0.88rem;
+      text-decoration: none; transition: all 0.3s;
+    }
+    .btn-call:hover { background: rgba(245,158,11,0.2); }
 
     /* ── FOOTER ── */
-    footer{
-      text-align:center;padding:3rem 2rem;
-      border-top:1px solid rgba(255,255,255,.06);position:relative;z-index:2;
+    footer {
+      text-align: center; padding: 3rem 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
     }
-    .foot-logo{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:.1em;color:var(--amber)}
-    .foot-tag{font-size:.8rem;color:rgba(255,255,255,.35);margin-top:.4rem}
-
-    /* ── WA FLOAT ── */
-    .wa-float{
-      position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;
-      width:52px;height:52px;border-radius:50%;
-      background:#25d366;color:#fff;
-      display:flex;align-items:center;justify-content:center;
-      text-decoration:none;
-      box-shadow:0 6px 24px rgba(37,211,102,.5);
-      animation:waPulse 2s infinite;
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem; letter-spacing: 0.1em; color: var(--amber);
     }
-    @keyframes waPulse{0%,100%{box-shadow:0 6px 24px rgba(37,211,102,.5)}50%{box-shadow:0 6px 32px rgba(37,211,102,.75),0 0 0 8px rgba(37,211,102,.1)}}
+    .footer-sub { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+    .footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.2); margin-top: 1.5rem; }
 
     /* ── REVEAL ── */
-    .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
-    .reveal.in{opacity:1;transform:translateY(0)}
-    .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s, transform 0.7s; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .delay1 { transition-delay: 0.1s; }
+    .delay2 { transition-delay: 0.2s; }
+    .delay3 { transition-delay: 0.3s; }
 
-    /* ── MOBILE ── */
-    @media(max-width:768px){
-      nav{padding:.8rem 1rem}
-      section{padding:4rem 1rem}
-      .story-sticky{flex-direction:column;gap:2rem;height:auto;position:relative;padding:3rem 1rem}
-      .story-scroll-wrap{height:auto}
-      .story-burger{width:100%;max-width:260px}
-      .story-text{max-width:100%;text-align:center}
-      .story-dots{justify-content:center}
-      .menu-card{flex:0 0 calc(100% - 0px)}
-      .carousel-btn{display:none}
-      .why-grid{grid-template-columns:1fr}
-      .bg-burger-wrap{width:280px;height:280px;opacity:.12}
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      #bg-burger { width: 280px; opacity: 0.7; }
+      section { padding: 4rem 1.2rem; }
+      .menu-card { flex: 0 0 calc(85% - 8px); }
+      #why .why-grid { grid-template-columns: 1fr; }
+      #story-sticky { flex-direction: column; gap: 2rem; }
+      .story-burger { width: 180px; }
+      .story-text { max-width: 100%; }
+      #story-wrap { height: auto; }
+      #story-sticky { position: relative; height: auto; padding: 4rem 1.2rem; flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
-<!-- FIXED BG BURGER -->
-<div id="bg-burger">
-  <div class="bg-burger-wrap">
-    <div class="bg-layer bg-top-bun"></div>
-    <div class="bg-layer bg-lettuce"></div>
-    <div class="bg-layer bg-cheese"></div>
-    <div class="bg-layer bg-patty"></div>
-    <div class="bg-layer bg-bottom-bun"></div>
+  <!-- BG Burger -->
+  <div id="bg-burger">
+    <div class="bg-top-bun"></div>
+    <div class="bg-sauce"></div>
+    <div class="bg-lettuce"></div>
+    <div class="bg-cheese"></div>
+    <div class="bg-patty"></div>
+    <div class="bg-bottom-bun"></div>
   </div>
-</div>
-<div id="bg-overlay"></div>
+  <div id="bg-overlay"></div>
 
-<!-- WA FLOAT -->
-<a class="wa-float" href="https://wa.me/917012345678?text=Hi%20Burkins!%20I%20want%20to%20order" target="_blank" rel="noopener" aria-label="Order on WhatsApp">
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
+  <!-- Progress bar -->
+  <div id="progress"></div>
 
-<div class="content">
-  <!-- NAV -->
-  <nav>
-    <div class="nav-logo">Burkins</div>
-    <a class="nav-cta" href="https://wa.me/917012345678?text=Hi%20Burkins!%20I%20want%20to%20order" target="_blank">Order Now</a>
-  </nav>
+  <!-- Floating WA -->
+  <a class="wa-btn" href="https://wa.me/917012345678?text=Hi%20Burkins!%20I%20want%20to%20order" target="_blank" rel="noopener" aria-label="Order on WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-eyebrow">Thodupuzha, Kerala</div>
+  <!-- ── HERO ── -->
+  <section id="hero" style="max-width:100%;padding:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;">
+    <div class="hero-tag">Thodupuzha, Kerala</div>
     <h1 class="hero-title">BUR<span>K</span>INS</h1>
     <p class="hero-tagline">Where Every Bite Tells a Story</p>
-    <a class="hero-btn" href="https://wa.me/917012345678?text=Hi%20Burkins!%20I%20want%20to%20order" target="_blank">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Order on WhatsApp
-    </a>
-    <div class="scroll-hint">
-      <span>Scroll to build your burger</span>
-      <div class="scroll-arrow"></div>
-    </div>
+    <a class="hero-cta" href="https://wa.me/917012345678?text=Hi%20Burkins!%20I%20want%20to%20order" target="_blank" rel="noopener">Order on WhatsApp</a>
+    <div class="scroll-hint">Scroll to build</div>
   </section>
 
-  <!-- STORY -->
-  <section id="story">
-    <div class="story-scroll-wrap" id="storyWrap">
-      <div class="story-sticky" id="storySticky">
-        <!-- Burger -->
-        <div class="story-burger" id="sBurger">
-          <div class="s-layer s-top-bun"    id="sl6"></div>
-          <div class="s-layer s-sauce"      id="sl5"></div>
-          <div class="s-layer s-lettuce"    id="sl4"></div>
-          <div class="s-layer s-cheese"     id="sl3"></div>
-          <div class="s-layer s-patty"      id="sl2"></div>
-          <div class="s-layer s-bottom-bun" id="sl1"></div>
+  <!-- ── STORYTELLING ── -->
+  <div id="story-wrap">
+    <div id="story-sticky">
+
+      <!-- Burger visual -->
+      <div class="story-burger" id="storyBurger">
+        <div class="sb-layer sb-top-bun"    id="sl6"></div>
+        <div class="sb-layer sb-sauce"      id="sl5"></div>
+        <div class="sb-layer sb-lettuce"    id="sl4"></div>
+        <div class="sb-layer sb-cheese"     id="sl3"></div>
+        <div class="sb-layer sb-patty"      id="sl2"></div>
+        <div class="sb-layer sb-bottom-bun" id="sl1"></div>
+      </div>
+
+      <!-- Story text -->
+      <div class="story-text" id="storyText">
+        <div class="ch-dots" id="chDots">
+          <div class="ch-dot" id="d0"></div><div class="ch-dot" id="d1"></div>
+          <div class="ch-dot" id="d2"></div><div class="ch-dot" id="d3"></div>
+          <div class="ch-dot" id="d4"></div><div class="ch-dot" id="d5"></div>
         </div>
-        <!-- Text -->
-        <div class="story-text">
-          <div class="story-dots">
-            <div class="s-dot" id="sd0"></div><div class="s-dot" id="sd1"></div>
-            <div class="s-dot" id="sd2"></div><div class="s-dot" id="sd3"></div>
-            <div class="s-dot" id="sd4"></div><div class="s-dot" id="sd5"></div>
-          </div>
-          <div class="story-chapter" id="sc0">
-            <div class="ch-label">Chapter 01 — The Foundation</div>
-            <h2 class="ch-title">The Perfect Bun.</h2>
-            <p class="ch-body">It starts with the perfect bun. Baked fresh every morning in our kitchen. Golden, soft, and just sturdy enough to hold everything that's coming.</p>
-            <span class="ch-tag">🌅 Fresh daily — 6 AM bake</span>
-          </div>
-          <div class="story-chapter" id="sc1">
-            <div class="ch-label">Chapter 02 — The Smash</div>
-            <h2 class="ch-title">100% Pure Beef.</h2>
-            <p class="ch-body">Smashed to perfection on a 300°C griddle. That crust seals in every drop of flavour. No fillers. No shortcuts. Just beef.</p>
-            <span class="ch-tag">🔥 300°C smash technique</span>
-          </div>
-          <div class="story-chapter" id="sc2">
-            <div class="ch-label">Chapter 03 — The Melt</div>
-            <h2 class="ch-title">Three Layers of Cheddar.</h2>
-            <p class="ch-body">Three layers of aged cheddar, draped over the hot patty until it melts into every crevice. Because one is never enough.</p>
-            <span class="ch-tag">🧀 Aged Irish cheddar</span>
-          </div>
-          <div class="story-chapter" id="sc3">
-            <div class="ch-label">Chapter 04 — The Crunch</div>
-            <h2 class="ch-title">Crisp Kerala Lettuce.</h2>
-            <p class="ch-body">Crisp lettuce sourced from local Kerala farms, delivered fresh every single day. Cold crunch against warm beef.</p>
-            <span class="ch-tag">🌿 Local Kerala farms daily</span>
-          </div>
-          <div class="story-chapter" id="sc4">
-            <div class="ch-label">Chapter 05 — The Secret</div>
-            <h2 class="ch-title">11 Spices. One Sauce.</h2>
-            <p class="ch-body">Our secret sauce. Eleven spices. A recipe never written down. Made in-house since day one. You'll never figure it out.</p>
-            <span class="ch-tag">🤫 Recipe never leaves the kitchen</span>
-          </div>
-          <div class="story-chapter" id="sc5">
-            <div class="ch-label">Chapter 06 — The Legend</div>
-            <h2 class="ch-title">The Burkins Smash.</h2>
-            <p class="ch-body">The top bun lands. The story is complete. One burger, six layers, infinite flavour. Welcome to Burkins.</p>
-            <span class="ch-tag">🏆 Thodupuzha's #1 smash burger</span>
-          </div>
+
+        <div class="story-chapter active" id="sc0">
+          <div class="ch-num">01</div>
+          <div class="ch-label">The Foundation</div>
+          <h2 class="ch-title">The Perfect Bun.</h2>
+          <p class="ch-body">It starts with the perfect bun. Baked fresh every morning. Golden, soft, and just sturdy enough to hold everything that's coming.</p>
+          <span class="ch-tag">🌅 Fresh daily — 6AM bake</span>
+        </div>
+        <div class="story-chapter" id="sc1">
+          <div class="ch-num">02</div>
+          <div class="ch-label">The Smash</div>
+          <h2 class="ch-title">100% Pure Beef.</h2>
+          <p class="ch-body">Smashed to perfection on a 300°C griddle. That crust — the Maillard magic — seals in every drop of flavour. No fillers. Just beef.</p>
+          <span class="ch-tag">🔥 300°C smash technique</span>
+        </div>
+        <div class="story-chapter" id="sc2">
+          <div class="ch-num">03</div>
+          <div class="ch-label">The Melt</div>
+          <h2 class="ch-title">Three Layers of Cheddar.</h2>
+          <p class="ch-body">Three layers of aged cheddar draped over the hot patty until it melts into every crevice. Because one is never enough.</p>
+          <span class="ch-tag">🧀 Aged Irish cheddar</span>
+        </div>
+        <div class="story-chapter" id="sc3">
+          <div class="ch-num">04</div>
+          <div class="ch-label">The Crunch</div>
+          <h2 class="ch-title">Crisp Kerala Lettuce.</h2>
+          <p class="ch-body">Crisp lettuce from local Kerala farms, delivered fresh daily. The cold crunch against warm beef — the contrast that completes the burger.</p>
+          <span class="ch-tag">🌿 Local Kerala farms daily</span>
+        </div>
+        <div class="story-chapter" id="sc4">
+          <div class="ch-num">05</div>
+          <div class="ch-label">The Secret</div>
+          <h2 class="ch-title">11 Spices. One Sauce.</h2>
+          <p class="ch-body">Our secret sauce. Eleven spices. A recipe never written down — only passed hand to hand. Made in-house since day one.</p>
+          <span class="ch-tag">🤫 Recipe never leaves the kitchen</span>
+        </div>
+        <div class="story-chapter" id="sc5">
+          <div class="ch-num">06</div>
+          <div class="ch-label">The Legend</div>
+          <h2 class="ch-title">The Burkins Smash.</h2>
+          <p class="ch-body">The top bun lands. The story is complete. One burger, six layers, infinite flavour. Welcome to Thodupuzha's most talked-about bite.</p>
+          <span class="ch-tag">🏆 Thodupuzha's #1 smash burger</span>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- MENU -->
+    </div>
+  </div>
+
+  <!-- ── MENU ── -->
   <section id="menu">
     <div class="sec-label reveal">Our Menu</div>
-    <h2 class="sec-title reveal d1">Pick Your Story</h2>
-    <div class="sec-divider reveal d2"></div>
-    <p class="sec-sub reveal d3">Every burger handcrafted. Every bite intentional.</p>
-    <div class="menu-carousel-wrap">
-      <button class="carousel-btn carousel-prev" id="cPrev">&#8592;</button>
-      <div class="menu-carousel" id="menuCarousel">
-        <div class="menu-card glass reveal">
+    <h2 class="sec-title reveal delay1">Pick Your Story</h2>
+    <div class="sec-divider reveal delay2"></div>
+    <div class="carousel-wrap reveal delay3">
+      <div class="carousel" id="menuCarousel">
+        <div class="menu-card glass">
           <div class="card-badge">Bestseller</div>
           <span class="card-emoji">🍔</span>
-          <div class="card-name">Classic Smash</div>
-          <p class="card-desc">Double smash patty, American cheese, pickles, onions, Burkins special sauce. The OG.</p>
+          <div class="card-name">Classic Smash Burger</div>
+          <p class="card-desc">Double smash patty, American cheese, pickles, onions, Burkins special sauce. The OG that started it all.</p>
           <div class="card-price">₹199</div>
         </div>
-        <div class="menu-card glass reveal d1">
+        <div class="menu-card glass">
           <div class="card-badge">🌶 Spicy</div>
           <span class="card-emoji">🔥</span>
-          <div class="card-name">Kerala Fire</div>
-          <p class="card-desc">Ghost pepper mayo, Kerala chilli relish, crispy shallots, iceberg lettuce. For the brave.</p>
+          <div class="card-name">Kerala Fire Smash</div>
+          <p class="card-desc">Smash patty, ghost pepper mayo, Kerala chilli relish, crispy shallots, iceberg lettuce. For the brave.</p>
           <div class="card-price">₹229</div>
         </div>
-        <div class="menu-card glass reveal">
+        <div class="menu-card glass">
           <span class="card-emoji">🧀</span>
           <div class="card-name">Triple Cheese Stack</div>
-          <p class="card-desc">Triple patty, three cheeses — cheddar, American, pepper jack. No regrets, only happiness.</p>
+          <p class="card-desc">Triple patty, three cheeses (cheddar, American, pepper jack), caramelised onions, house pickles.</p>
           <div class="card-price">₹299</div>
         </div>
-        <div class="menu-card glass reveal d1">
+        <div class="menu-card glass">
           <div class="card-badge">New</div>
           <span class="card-emoji">🥬</span>
-          <div class="card-name">Green Smash</div>
-          <p class="card-desc">Plant-based patty, avocado cream, sundried tomatoes, fresh Kerala herbs, garlic aioli.</p>
+          <div class="card-name">The Green Smash</div>
+          <p class="card-desc">Plant-based patty, avocado cream, sundried tomatoes, fresh Kerala herbs, garlic aioli. 100% Burkins.</p>
           <div class="card-price">₹219</div>
         </div>
-        <div class="menu-card glass reveal">
+        <div class="menu-card glass">
           <span class="card-emoji">🐔</span>
-          <div class="card-name">Crispy Chicken</div>
-          <p class="card-desc">Buttermilk fried chicken thigh, coleslaw, pickled jalapeños, honey mustard. The rebel.</p>
+          <div class="card-name">Crispy Chicken Stack</div>
+          <p class="card-desc">Buttermilk fried chicken thigh, coleslaw, pickled jalapeños, honey mustard. The rebel of the menu.</p>
           <div class="card-price">₹209</div>
         </div>
-        <div class="menu-card glass reveal d1">
+        <div class="menu-card glass">
           <span class="card-emoji">🍟</span>
-          <div class="card-name">Burkins Box</div>
-          <p class="card-desc">Classic Smash + hand-cut fries + house soda. The full experience. The full story.</p>
+          <div class="card-name">The Burkins Box</div>
+          <p class="card-desc">Classic Smash + hand-cut fries + house soda. The full Burkins experience in one box.</p>
           <div class="card-price">₹329</div>
         </div>
       </div>
-      <button class="carousel-btn carousel-next" id="cNext">&#8594;</button>
+      <div class="carousel-nav">
+        <button class="carousel-btn" id="prevBtn">←</button>
+        <button class="carousel-btn" id="nextBtn">→</button>
+      </div>
     </div>
   </section>
 
-  <!-- WHY BURKINS -->
+  <!-- ── WHY BURKINS ── -->
   <section id="why">
     <div class="sec-label reveal">Why Burkins</div>
-    <h2 class="sec-title reveal d1">What Sets Us Apart</h2>
-    <div class="sec-divider reveal d2"></div>
+    <h2 class="sec-title reveal delay1">What Sets Us Apart</h2>
+    <div class="sec-divider reveal delay2"></div>
     <div class="why-grid">
-      <div class="why-card glass reveal">
+      <div class="why-card glass reveal delay1">
         <div class="why-icon">🔥</div>
         <div class="why-title">The Smash Technique</div>
-        <p class="why-body">We press every patty onto a 300°C cast iron griddle. The result is a crispy caramelised crust with a juicy centre. Science never tasted this good.</p>
+        <p class="why-body">We press every patty onto a 300°C cast iron griddle. The result: a crispy caramelised crust with a juicy centre. Science never tasted this good.</p>
       </div>
-      <div class="why-card glass reveal d1">
+      <div class="why-card glass reveal delay2">
         <div class="why-icon">🌴</div>
         <div class="why-title">Kerala Soul</div>
         <p class="why-body">Every vegetable comes from Kerala farms within 50km. Fresher ingredients, better flavour, and we support the farmers who feed our state.</p>
@@ -492,84 +654,109 @@
     </div>
   </section>
 
-  <!-- FIND US -->
-  <section id="find-us">
+  <!-- ── FIND US ── -->
+  <section id="findus">
     <div class="sec-label reveal">Find Us</div>
-    <h2 class="sec-title reveal d1">Come On Over</h2>
-    <div class="sec-divider reveal d2" style="margin:1.2rem auto 0"></div>
-    <div class="find-card glass reveal d2">
-      <div class="addr-row"><div class="addr-icon">📍</div><div class="addr-text">Near Private Bus Stand, Thodupuzha, Idukki District, Kerala — 685 584</div></div>
-      <div class="addr-row"><div class="addr-icon">🕐</div><div class="addr-text">Monday – Sunday: 11:00 AM – 11:00 PM</div></div>
-      <div class="addr-row"><div class="addr-icon">📞</div><div class="addr-text">+91 70123 45678</div></div>
-      <div class="cta-row">
-        <a href="https://wa.me/917012345678?text=Hi%20Burkins!%20I%20want%20to%20order" class="btn-wa" target="_blank">
+    <h2 class="sec-title reveal delay1">Come On Over</h2>
+    <div class="sec-divider reveal delay2"></div>
+    <div class="find-card glass reveal delay3">
+      <div class="addr-row"><span class="addr-icon">📍</span><span class="addr-text">Near Private Bus Stand, Thodupuzha, Idukki District, Kerala — 685 584</span></div>
+      <div class="addr-row"><span class="addr-icon">🕐</span><span class="addr-text">Monday – Sunday: 11:00 AM – 11:00 PM</span></div>
+      <div class="addr-row"><span class="addr-icon">📞</span><span class="addr-text">+91 70123 45678</span></div>
+      <div class="find-btns">
+        <a class="btn-wa" href="https://wa.me/917012345678?text=Hi%20Burkins!%20I%20want%20to%20order" target="_blank" rel="noopener">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Order on WhatsApp
         </a>
-        <a href="tel:+917012345678" class="btn-call">📞 Call Us</a>
+        <a class="btn-call" href="tel:+917012345678">📞 Call Us</a>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ── FOOTER ── -->
   <footer>
-    <div class="foot-logo">BURKINS</div>
-    <p class="foot-tag">Where Every Bite Tells a Story — Thodupuzha, Kerala &nbsp;|&nbsp; @burkins.official &nbsp;|&nbsp; © 2026</p>
+    <div class="footer-logo">BURKINS</div>
+    <p class="footer-sub">Where Every Bite Tells a Story — Thodupuzha, Kerala</p>
+    <p class="footer-copy">© 2026 Burkins Burger Cafe · Instagram @burkins.official</p>
   </footer>
-</div>
 
-<script>
-  const isMob = () => window.innerWidth <= 768;
-  const layers = [1,2,3,4,5,6].map(i => document.getElementById('sl'+i));
-  const chapters = [0,1,2,3,4,5].map(i => document.getElementById('sc'+i));
-  const dots = [0,1,2,3,4,5].map(i => document.getElementById('sd'+i));
-  let cur = -1;
+  <script>
+    const isMob = () => window.innerWidth <= 768;
 
-  function goChapter(i) {
-    if(i===cur) return;
-    if(cur>=0){ chapters[cur].classList.remove('on'); dots[cur].classList.remove('on'); }
-    cur=i;
-    if(i<0) return;
-    layers[i].classList.add('in');
-    chapters[i].classList.add('on');
-    dots[i].classList.add('on');
-  }
+    // Progress bar
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const p = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      progress.style.width = (p * 100) + '%';
+    }, { passive: true });
 
-  // Desktop scroll
-  const wrap = document.getElementById('storyWrap');
-  window.addEventListener('scroll', ()=>{
-    if(isMob()) return;
-    const rect = wrap.getBoundingClientRect();
-    const h = wrap.offsetHeight;
-    const scrolled = -rect.top;
-    if(scrolled<0 || scrolled>h) return;
-    const p = scrolled/h;
-    goChapter(Math.min(5, Math.floor(p/(1/7))));
-  }, {passive:true});
+    // Bg burger parallax
+    const bgBurger = document.getElementById('bg-burger');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY * 0.08;
+      bgBurger.style.transform = `translate(-50%, calc(-50% + ${y}px))`;
+    }, { passive: true });
 
-  // Mobile auto-animate
-  let mobDone=false;
-  new IntersectionObserver(entries=>{
-    if(entries[0].isIntersecting && !mobDone && isMob()){
-      mobDone=true;
-      layers.forEach((_,i)=>setTimeout(()=>goChapter(i),i*800));
+    // Story animation
+    const storyWrap = document.getElementById('story-wrap');
+    const layers = [1,2,3,4,5,6].map(i => document.getElementById('sl'+i));
+    const chapters = [0,1,2,3,4,5].map(i => document.getElementById('sc'+i));
+    const dots = [0,1,2,3,4,5].map(i => document.getElementById('d'+i));
+    let curChapter = -1;
+
+    function setChapter(idx) {
+      if (idx === curChapter) return;
+      if (curChapter >= 0) {
+        chapters[curChapter].classList.remove('active');
+        dots[curChapter].classList.remove('on');
+      }
+      curChapter = idx;
+      if (idx < 0) return;
+      layers[idx].classList.add('in');
+      chapters[idx].classList.add('active');
+      dots[idx].classList.add('on');
     }
-  },{threshold:0.2}).observe(document.getElementById('sBurger'));
 
-  // Carousel
-  const carousel = document.getElementById('menuCarousel');
-  document.getElementById('cNext').onclick = ()=>carousel.scrollBy({left:carousel.offsetWidth/2+8,behavior:'smooth'});
-  document.getElementById('cPrev').onclick = ()=>carousel.scrollBy({left:-(carousel.offsetWidth/2+8),behavior:'smooth'});
+    // Desktop scroll
+    if (!isMob()) {
+      window.addEventListener('scroll', () => {
+        const rect = storyWrap.getBoundingClientRect();
+        const total = storyWrap.offsetHeight - window.innerHeight;
+        const scrolled = -rect.top;
+        if (scrolled < 0 || scrolled > total) return;
+        const progress = scrolled / total;
+        const idx = Math.min(5, Math.floor(progress * 7));
+        setChapter(idx);
+      }, { passive: true });
+    } else {
+      // Mobile: auto-animate when visible
+      let done = false;
+      const obs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting && !done) {
+          done = true;
+          layers.forEach((_, i) => setTimeout(() => setChapter(i), i * 700));
+          obs.disconnect();
+        }
+      }, { threshold: 0.3 });
+      obs.observe(document.getElementById('storyBurger'));
+    }
 
-  // Reveal
-  new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');} });
-  },{threshold:0.15}).observe(document.body);
+    // Carousel
+    const carousel = document.getElementById('menuCarousel');
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      carousel.scrollBy({ left: carousel.offsetWidth / 2 + 16, behavior: 'smooth' });
+    });
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      carousel.scrollBy({ left: -(carousel.offsetWidth / 2 + 16), behavior: 'smooth' });
+    });
 
-  const ro = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('in');});
-  },{threshold:0.1});
-  document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
-</script>
+    // Scroll reveal
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+  </script>
 </body>
 </html>
