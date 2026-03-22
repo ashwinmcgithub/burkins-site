@@ -342,24 +342,31 @@
     .menu-card {
       flex: 0 0 calc(50% - 8px);
       scroll-snap-align: start;
-      padding: 1.8rem 1.5rem;
+      overflow: hidden;
       cursor: default;
       transition: transform 0.3s;
     }
     .menu-card:hover { transform: translateY(-4px); }
+    .card-img {
+      width: 100%; height: 160px;
+      object-fit: cover;
+      border-radius: 10px 10px 0 0;
+      display: block;
+      margin: -1px;
+    }
+    .card-body { padding: 1.2rem 1.4rem 1.5rem; }
     .card-badge {
       display: inline-block; font-size: 0.65rem; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
       background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.35);
       color: var(--amber); padding: 3px 12px; border-radius: 50px;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
-    .card-emoji { font-size: 2.5rem; display: block; margin-bottom: 0.75rem; }
     .card-name {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem; letter-spacing: 0.05em; margin-bottom: 0.5rem;
+      font-size: 1.5rem; letter-spacing: 0.05em; margin-bottom: 0.4rem;
     }
-    .card-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+    .card-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem; }
     .card-price {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 1.8rem; color: var(--amber);
@@ -468,8 +475,32 @@
       #story-sticky { flex-direction: column; gap: 2rem; }
       .story-burger { width: 180px; }
       .story-text { max-width: 100%; }
-      #story-wrap { height: auto; }
-      #story-sticky { position: relative; height: auto; padding: 4rem 1.2rem; flex-direction: column; }
+      /* Mobile story — simple vertical layout, no sticky */
+      #story-wrap { height: auto !important; }
+      #story-sticky {
+        position: relative !important;
+        height: auto !important;
+        flex-direction: column;
+        padding: 3rem 1.2rem;
+        gap: 2.5rem;
+      }
+      .story-burger { width: 200px; }
+
+      /* On mobile show ALL chapters as a vertical list */
+      .story-chapter {
+        position: relative !important;
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: auto !important;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: rgba(245,158,11,0.04);
+        border: 1px solid rgba(245,158,11,0.12);
+        border-radius: 14px;
+      }
+      .ch-num { display: none; }
+      .ch-dots { display: none; }
+      .story-text { max-width: 100%; width: 100%; }
     }
   </style>
 </head>
@@ -575,43 +606,55 @@
     <div class="carousel-wrap reveal delay3">
       <div class="carousel" id="menuCarousel">
         <div class="menu-card glass">
-          <div class="card-badge">Bestseller</div>
-          <span class="card-emoji">🍔</span>
-          <div class="card-name">Classic Smash Burger</div>
-          <p class="card-desc">Double smash patty, American cheese, pickles, onions, Burkins special sauce. The OG that started it all.</p>
-          <div class="card-price">₹199</div>
+          <img class="card-img" src="menu1.jpg" alt="Classic Smash Burger"/>
+          <div class="card-body">
+            <div class="card-badge">Bestseller</div>
+            <div class="card-name">Classic Smash Burger</div>
+            <p class="card-desc">Double smash patty, American cheese, pickles, onions, Burkins special sauce. The OG that started it all.</p>
+            <div class="card-price">₹199</div>
+          </div>
         </div>
         <div class="menu-card glass">
-          <div class="card-badge">🌶 Spicy</div>
-          <span class="card-emoji">🔥</span>
-          <div class="card-name">Kerala Fire Smash</div>
-          <p class="card-desc">Smash patty, ghost pepper mayo, Kerala chilli relish, crispy shallots, iceberg lettuce. For the brave.</p>
-          <div class="card-price">₹229</div>
+          <img class="card-img" src="menu2.jpg" alt="Kerala Fire Smash"/>
+          <div class="card-body">
+            <div class="card-badge">Spicy</div>
+            <div class="card-name">Kerala Fire Smash</div>
+            <p class="card-desc">Smash patty, ghost pepper mayo, Kerala chilli relish, crispy shallots, iceberg lettuce. For the brave.</p>
+            <div class="card-price">₹229</div>
+          </div>
         </div>
         <div class="menu-card glass">
-          <span class="card-emoji">🧀</span>
-          <div class="card-name">Triple Cheese Stack</div>
-          <p class="card-desc">Triple patty, three cheeses (cheddar, American, pepper jack), caramelised onions, house pickles.</p>
-          <div class="card-price">₹299</div>
+          <img class="card-img" src="menu3.jpg" alt="Triple Cheese Stack"/>
+          <div class="card-body">
+            <div class="card-name">Triple Cheese Stack</div>
+            <p class="card-desc">Triple patty, three cheeses (cheddar, American, pepper jack), caramelised onions, house pickles.</p>
+            <div class="card-price">₹299</div>
+          </div>
         </div>
         <div class="menu-card glass">
-          <div class="card-badge">New</div>
-          <span class="card-emoji">🥬</span>
-          <div class="card-name">The Green Smash</div>
-          <p class="card-desc">Plant-based patty, avocado cream, sundried tomatoes, fresh Kerala herbs, garlic aioli. 100% Burkins.</p>
-          <div class="card-price">₹219</div>
+          <img class="card-img" src="menu4.jpg" alt="The Green Smash"/>
+          <div class="card-body">
+            <div class="card-badge">New</div>
+            <div class="card-name">The Green Smash</div>
+            <p class="card-desc">Plant-based patty, avocado cream, sundried tomatoes, fresh Kerala herbs, garlic aioli. 100% Burkins.</p>
+            <div class="card-price">₹219</div>
+          </div>
         </div>
         <div class="menu-card glass">
-          <span class="card-emoji">🐔</span>
-          <div class="card-name">Crispy Chicken Stack</div>
-          <p class="card-desc">Buttermilk fried chicken thigh, coleslaw, pickled jalapeños, honey mustard. The rebel of the menu.</p>
-          <div class="card-price">₹209</div>
+          <img class="card-img" src="menu5.jpg" alt="Crispy Chicken Stack"/>
+          <div class="card-body">
+            <div class="card-name">Crispy Chicken Stack</div>
+            <p class="card-desc">Buttermilk fried chicken thigh, coleslaw, pickled jalapeños, honey mustard. The rebel of the menu.</p>
+            <div class="card-price">₹209</div>
+          </div>
         </div>
         <div class="menu-card glass">
-          <span class="card-emoji">🍟</span>
-          <div class="card-name">The Burkins Box</div>
-          <p class="card-desc">Classic Smash + hand-cut fries + house soda. The full Burkins experience in one box.</p>
-          <div class="card-price">₹329</div>
+          <img class="card-img" src="menu6.jpg" alt="The Burkins Box"/>
+          <div class="card-body">
+            <div class="card-name">The Burkins Box</div>
+            <p class="card-desc">Classic Smash + hand-cut fries + house soda. The full Burkins experience in one box.</p>
+            <div class="card-price">₹329</div>
+          </div>
         </div>
       </div>
       <div class="carousel-nav">
