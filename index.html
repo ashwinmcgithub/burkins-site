@@ -42,18 +42,28 @@
       transform: translate(-50%, -50%);
       z-index: 0;
       pointer-events: none;
-      width: 520px;
-      height: 520px;
-      opacity: 0.85;
-      filter: drop-shadow(0 0 60px rgba(245,158,11,0.2));
+      width: 700px;
+      height: 700px;
+      opacity: 0.9;
     }
     #bg-burger img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 50%;
-      mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
-      -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+      /* Black bg blends perfectly with our dark site bg */
+      mix-blend-mode: lighten;
+      filter: brightness(0.85) contrast(1.1) drop-shadow(0 0 60px rgba(245,158,11,0.25));
+    }
+
+    @media (max-width: 768px) {
+      #bg-burger {
+        width: 100vw;
+        height: 100vw;
+        max-width: 420px;
+        max-height: 420px;
+        top: 28%;
+        opacity: 0.8;
+      }
     }
 
     /* Page overlay so text stays readable */
@@ -449,14 +459,7 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      #bg-burger {
-        width: 100vw;
-        height: 100vw;
-        max-width: 400px;
-        max-height: 400px;
-        opacity: 0.75;
-        top: 30%;
-      }
+      #bg-burger-old { display: none; } /* placeholder */
       section { padding: 4rem 1.2rem; }
       .menu-card { flex: 0 0 calc(85% - 8px); }
       #why .why-grid { grid-template-columns: 1fr; }
@@ -472,7 +475,7 @@
 
   <!-- BG Burger -->
   <div id="bg-burger">
-    <img src="burger.png" alt="Burkins Smash Burger"/>
+    <img src="burger.jpg" alt="Burkins Smash Burger"/>
   </div>
   <div id="bg-overlay"></div>
 
