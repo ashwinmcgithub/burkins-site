@@ -1,0 +1,27 @@
+Build a stunning ONE PAGE website for "Burkins" — a premium burger cafe in Thodupuzha, Kerala, India.
+
+AESTHETIC: Dark, moody, premium burger joint — think Five Guys meets a Kerala street food vibe. Black and deep brown backgrounds, warm amber/orange/gold accent colors, dramatic food photography placeholder sections, bold typography.
+
+SECTIONS (all in one scrolling page):
+1. HERO — Full screen, dark background, big bold "BURKINS" logo text (custom styled), tagline "Thodupuzha's Finest Burgers", CTA button "Order on WhatsApp" linking to wa.me/917012345678
+2. MENU HIGHLIGHTS — 3D card hover effects, show 6 menu items: Classic Smash Burger Rs199, Cheese Overload Burger Rs249, Spicy Chicken Zinger Rs229, Double Beef Stack Rs299, Veg Crispy Delight Rs179, BBQ Bacon Blast Rs279
+3. WHY BURKINS — 3 pillars with icons: Fresh Daily, Secret Sauce, Kerala Craft
+4. GALLERY — 6 placeholder boxes with food-themed gradient colors and labels (Smash Burger, Cheese Pull, Crispy Fries, etc.)
+5. FIND US — Address: Near Private Bus Stand, Thodupuzha, Idukki, Kerala. Phone: +91 70123 45678. WhatsApp order button. Opening hours: 11AM - 11PM daily
+6. FOOTER — Instagram @burkins.official, copyright
+
+TECHNICAL REQUIREMENTS:
+- Pure HTML/CSS/JS — single index.html file
+- 3D effects: card transforms on hover, parallax scrolling, CSS 3D perspective
+- Smooth scroll animations using Intersection Observer
+- Mobile responsive
+- WhatsApp floating button bottom right
+- Google Fonts: Bebas Neue for headings, Poppins for body
+- Colors: #0a0a0a background, #1a1209 sections, #f59e0b amber accent, #ffffff text
+- NO external libraries except Google Fonts
+
+Make it jaw-droppingly good. This is a pitch site to wow the client.
+
+Save as index.html in the current directory.
+
+When completely finished, run: openclaw system event --text "Done: Burkins website built" --mode now
